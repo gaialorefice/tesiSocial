@@ -1,4 +1,4 @@
-const Follower = require("../models/Follower");
+
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
@@ -61,16 +61,19 @@ router.get("/:id",async(req,res)=>{
     }
 
 })
-//follower
+//follow
 router.put("/:id/follow", async (req, res)=>{
-    if(req.body.userId != req.params.id){
+    if(req.body.userId !== req.params.id){
         try{
             const user =  await User.findById(req.params.id); //account da seguire
-            const currentUser = await User.findById(req.params.userId); //account che segue 
-            const f = await Follower.find(req.params.id);
+            const currentUser = await User.findById(req.body.userId); //account che segue 
             
-            if(!f.follower.includes(req.params.userId)){
-                await f.up
+            if(!user.followers.includes(req.body.userId)){ //se current user non è presente in follower dell'utente
+                await user.updateOne({$push:{followers: req.body.userId}}); //aggiunge il follower nella lista dell'utente
+                await currentUser.updateOne({$push:{followings: req.params.id}}); // aggiumge il following nella lista dell'utente
+                res.status(200).json("Account aggiunto");
+            }else{
+                res.status(403).json("Già segui questa persona")
             }
            
         }catch(error){
@@ -81,6 +84,26 @@ router.put("/:id/follow", async (req, res)=>{
     }
 })
 
-//following 
-
+//unfollow
+router.put("/:id/unfollow", async (req, res)=>{
+    if(req.body.userId !== req.params.id){
+        try{
+            const user =  await User.findById(req.params.id); //account da seguire
+            const currentUser = await User.findById(req.body.userId); //account che segue 
+            
+            if(user.followers.includes(req.body.userId)){ //se current user è presente in follower dell'utente
+                await user.updateOne({$pull:{followers: req.body.userId}}); //rimuove il follower nella lista dell'utente
+                await currentUser.updateOne({$pull:{followings: req.params.id}}); // rimuove il following nella lista dell'utente
+                res.status(200).json("Account rimosso");
+            }else{
+                res.status(403).json("Non segui persona")
+            }
+           
+        }catch(error){
+            res.status(500).json(error)
+        }
+    }else{
+        res.status(403).json("Non puoi seguirti da solo")
+    }
+})
 module.exports = router;

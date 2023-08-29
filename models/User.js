@@ -34,13 +34,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         max: 50
     },
-    
-    following:{
+
+    followings:{
         type: Array,
         default:[],
     },
 
-    follower:{
+    followers:{
         type: Array,
         default: [],
     }
