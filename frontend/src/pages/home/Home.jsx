@@ -1,9 +1,18 @@
 import React from 'react'
+import Feed from '../components/feed/Feed'
 
 export default function Home() {
   return (
     <div>
-       Ciao, sei nella homepage
+      <>
+      <Header/>
+      <div className="homeContainer">
+        
+        <Feed/>
+
+      </div>
+        
+      </>
     </div>
   )
 }
