@@ -1,0 +1,17 @@
+
+.headerBox{
+    /* border-style: solid;
+    border-bottom-color: #478ba2; */
+    height: 6vh;
+}
+
+.name{
+    color: #478ba2 ;
+    
+    font-size: 24px;
+ 
+}
+
+.icon{
+    color: #478ba2 ;
+}

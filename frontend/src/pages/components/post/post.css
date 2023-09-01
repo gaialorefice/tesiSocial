@@ -1,0 +1,10 @@
+.box{
+    height: 800px;
+    width: 800px;
+}
+
+.profilePicturePost{
+    height: 50px;
+    object-fit: contain;
+}
+
