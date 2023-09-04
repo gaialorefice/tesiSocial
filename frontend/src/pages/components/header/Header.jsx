@@ -6,16 +6,16 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 
 export default function Header() {
   return (
-    <div className=' row headerBox  border-bottom shadow-sm '>
+    <div className=' row headerBox  border-bottom shadow-sm align-item-center '>
         <div className=' col-2 mt-2'> 
-            <div className="row offset-md-2"><span className='name' >Social Network</span></div>
+            <div className="row offset-md-2"><img src='assets/postcard.png' className='img-fluid' alt=''/></div>
         </div>
         <div className="col-10">
-            <div className="row align-items-center">
+            <div className="row align-items-center mt-2">
                 <div className=' col-6 offset-md-2 '>  
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Trova nuovi utenti..." aria-label="Search Bar" aria-describedby="button-addon2"/>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
+                    <div className="input-group">
+                        <input type="text" className="form-control" placeholder="Trova nuovi utenti..." aria-label="Search Bar" aria-describedby="button-addon2"/>
+                        <button className="btn btn-outline-secondary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
                     </div>  
                 </div>
                 <div className='col-4'> 

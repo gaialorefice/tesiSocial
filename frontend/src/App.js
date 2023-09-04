@@ -1,12 +1,14 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import Singup from "./pages/singup/Singup";
+import Profile from "./pages/profile/Profile";
+import Signup from "./pages/signup/Signup";
 
 function App() {
   return (
     // <Login/>
-    //<Singup/>
-    <Home/>
+    // <Signup/>
+    //<Home/>
+    <Profile/>
   );
 }
 

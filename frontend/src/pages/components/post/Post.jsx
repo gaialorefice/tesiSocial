@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './post.css'
-import img from '../../assets/img.png'
-import img2 from '../../assets/img2.png'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Users } from '../../../PostProva';
+
 
 export default function Post({post}) {
-    console.log(post)
+    
+    const [like,setLike]=useState(post.likes)//hooks?
+    const [isLiked,setIsLiked]=useState(false)//hooks?
+
+    const likeHandler =()=>{ //arrow function
+        setLike(isLiked? like-1: like+1)
+        setIsLiked(!isLiked) 
+    }
+   
   return (
-    <div className='row shadow-lg my-5'>
+    <div className='row shadow-sm rounded-3 bg-white my-5'>
         <div className="col mt-2">
             <div className="row mb-2  align-items-center">
                 <div className="col-1 me-3 ">
-                    <img src={img} className='profilePicturePost rounded-circle' alt=''/>
+                    <img src={Users.filter((u)=>u.id === post.userId)[0].profilePicture} className='profilePicturePost rounded-circle' alt=''/>
                 </div>
                 <div className="col-6 ">
                     <div className="d-flex flex-column">
-                        <span className='usernameText fs-5 fw-bold'>percythearancinocat_</span>
+                        <span className='usernameText fs-5 fw-bold'>{Users.filter((u)=>u.id === post.userId)[0].username}</span>
                         <span className='timeStamp fs-6 fw-light'>{post.date}</span>
                     </div>
                 </div>   
@@ -31,15 +39,15 @@ export default function Post({post}) {
             
             <div className="row ">
                 
-                <img src={post.image} className='postImage img-fluid' alt=''/>
+                <img src={post.img} className='postImage img-fluid' alt=''/>
             </div>
             <div className='row border-bottom'>
-              <span className="likeCounter fw-bold"> <FavoriteBorderIcon fontSize='large'/>{post.likes} Mi piace</span>
+              <span className="likeCounter fw-bold"onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
           
             </div>
             <div className="row" >
                 <div className="col fw-6">
-                    <span className='usernameText fw-bold me-2'>percythearancinocat_</span>
+                    <span className='usernameText fw-bold me-2'>{Users.filter((u)=>u.id === post.userId)[0].username}</span>
                     <span className='postDesc text-wrap'>{post?.desc}</span>
                 </div>
                 

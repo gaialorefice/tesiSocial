@@ -19,9 +19,9 @@ export default function Login() {
                     <a className='row' href="...">Password dimenticata?</a>
                     {/* penso sia sbagliato */}
                     <div className='row'>
-                    {/* <button type="button" class=" col-4 btn btn-outline-primary ">Login</button> */}
+                    {/* <button type="button" className=" col-4 btn btn-outline-primary ">Login</button> */}
                   
-                     <button type="button" class=" col-4 offset-md-4 btn btn-outline-primary ">LOGIN</button>
+                     <button type="button" className=" col-4 offset-md-4 btn btn-outline-primary ">LOGIN</button>
                     </div>
                     
                 </div>
