@@ -39,7 +39,7 @@ export default function Post({post}) {
             
             <div className="row ">
                 
-                <img src={post.img} className='postImage img-fluid' alt=''/>
+                <img src={post.img} className='postImage img-fluid' onClick={likeHandler} alt=''/>
             </div>
             <div className='row border-bottom'>
               <span className="likeCounter fw-bold"onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
@@ -53,7 +53,7 @@ export default function Post({post}) {
                 
             </div>
             <div className="row">
-                <span className="postComment fs-6 fw-light">{post.com} Commenti</span>
+                <span className="postComment fs-6 text-muted">{post?.com} Commenti</span>
             </div>
         </div>
         
