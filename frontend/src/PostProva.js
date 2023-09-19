@@ -2,18 +2,18 @@
 export const Users = [
     {
         id: 1,
-        profilePicture: "assets/1.jpg",
-        username:" Prova 1",
+        profilePicture: "1.jpg",
+        username:"Ragazzina",
     },
 
     {
         id: 2,
-        profilePicture: "assets/2.jpg",
-        username:"Prova 2",
+        profilePicture: "2.jpg",
+        username:"Cagnolini",
     },
     {
         id:3,
-        profilePicture:"assets/img.png",
+        profilePicture:"img.png",
         username:"percythearancinocat_",
     },
 
@@ -22,7 +22,7 @@ export const Posts = [
     {
         id: 1,
         userId: 1,
-        img:"assets/ragione.jpg",
+        img:"ragione.jpg",
         desc:"Ho sempre ragione",
         date: "2 minuti fa",
         com: 2,
@@ -31,7 +31,7 @@ export const Posts = [
     {
         id: 2,
         userId: 2,
-        img:"assets/landscape.jpg",
+        img:"landscape.jpg",
         desc:"",
         date: "10 giorni fa",
         com: 0,
@@ -40,7 +40,7 @@ export const Posts = [
     {
         id: 3,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,
@@ -49,7 +49,7 @@ export const Posts = [
     {
         id: 4,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,
@@ -58,7 +58,7 @@ export const Posts = [
     {
         id:5,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,
@@ -67,7 +67,7 @@ export const Posts = [
     {
         id:6,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,
@@ -76,7 +76,7 @@ export const Posts = [
     {
         id:7,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,
@@ -85,7 +85,7 @@ export const Posts = [
     {
         id:8,
         userId: 3,
-        img:"assets/img2.png",
+        img:"img2.png",
         desc:"i miei amici mi fanno paura",
         date: "3 giorni fa",
         com: 32,

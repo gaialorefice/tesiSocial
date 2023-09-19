@@ -5,10 +5,16 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 
 export default function Header() {
+
+    const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
+
     <div className=' row headerBox  border-bottom shadow-sm align-item-center '>
         <div className=' col-2 mt-2'> 
-            <div className="row offset-md-2"><img src='assets/postcard.png' className='img-fluid' alt=''/></div>
+            <div className="row offset-md-2">
+                <img src={PF+'postcard.png'} className='img-fluid headerLogo' alt=''/>
+            </div>
         </div>
         <div className="col-10">
             <div className="row align-items-center mt-2">

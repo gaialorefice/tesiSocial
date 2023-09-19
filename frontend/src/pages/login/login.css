@@ -3,7 +3,7 @@ body, html {
    
   }
   .bg {
-    /* background-image: url("assets/background.png"); */
+    background-image: url("../../../public/assets/background.png"); 
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,10 +11,15 @@ body, html {
   }
 
   .box{
-    
-    width: 500px;
+      width: 500px;
 
   }
+
+  .logo{
+    width: 55%;
+
+  }
+
   /* .box{
     display: flex;
     background-color: #ffffff;

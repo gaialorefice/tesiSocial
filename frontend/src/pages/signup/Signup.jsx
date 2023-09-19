@@ -1,42 +1,52 @@
 import React from 'react'
 import './signup.css'
+import { Link } from 'react-router-dom'
 
 export default function Signup() {
   return (
     <div className='bg'>
-        <div className='d-flex flex-row '>
-            <div className='d-flex  col-md-7  justify-content-center align-items-center'> 
-              <div>
-                <p className='fs-1 text-break'></p>
-                <p className='fs-4 text-break text-light'>Accedi per entrare in contatto con nuove persone!</p>
-
-              </div>
-            </div>
-            <div className='d-flex vh-100 col-md-5 bg-white justify-content-center align-items-center shadow-lg'>
-                <div className="d-flex flex-column  align-items-center gap-3 shadow-lg box"> 
-                    <div className='row'>
-                        <input  placeholder='Username'/>
-                    </div>
-                    <div className='row'>
-                        <input  placeholder='Nome'/>
-                    </div> 
-                    <div className='row'>
-                        <input  placeholder='Cognome'/>
-                    </div> 
-                    <div className='row'>
-                        <input  placeholder='Password'/>
-                    </div> 
-                    <div className='row'>
-                        <input  placeholder='Conferma Password'/>
-                    </div>
-                    
-                    {/* penso sia sbagliato */}
-                    <button type="button" className="col-md-5 btn btn-outline-primary ">SING UP</button>
-                </div>
-                
-            </div>
+    <div className='row vh-100 justify-content-center align-items-center'>
+        <div className='col-md-7 '> 
+          <div className="row ">
+            <img src="../assets/postcard-wh.png" className='logo' alt="" />
+              <span className='fs-4 text-break text-light'>Accedi per entrare in contatto con nuove persone!</span>
+          </div>
+            
           
         </div>
+        <div className='col h-100 col-md-5 bg-white shadow-lg'> 
+         
+            <form className="row h-auto justify-content-center align-items-center ">
+                <div className="d-flex flex-column  justify-content-center box ">
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="usernameInput" placeholder="Nome Utente"/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="nameInput" placeholder="Nome"/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="firstNameInput" placeholder="Cognome"/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="emailInput" placeholder="Email"/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="passwordInput" placeholder="Password"/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control border-primary" id="passCheckInput" placeholder="Conferma Password"/>
+                    </div>
+                    <button type="submit" className="btn btn-outline-primary">Registrati</button>
+                    <Link to="/login "> <span>Già registrato? Accedi!</span> </Link>
+                </div>
+
+            </form>
+           
+        </div> 
+
+      
+                  
     </div>
+</div>
   )
 }

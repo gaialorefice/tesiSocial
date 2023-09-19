@@ -3,15 +3,29 @@ import './profile.css'
 import Post from '../components/post/Post'
 import ProfilePost from '../components/profilePost/ProfilePost'
 import { Posts } from '../../PostProva'
+import { Users } from '../../PostProva'
+
+import SharePost from '../components/share/SharePost'
+
+import { Link } from 'react-router-dom'
+
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import Header from '../components/header/Header'
+
 
 export default function Profile() {
+    const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
   return (
-    
+    <>
+    <Header/>
     <div className="col">
         <div className="row mt-5 ">
-            <div className="col-3 border-end">
-                <div className="row justify-content-center">
-                    <img src='assets/img.png' className='profilePicture rounded-circle' alt=''/>
+            <div className="col-2 border-end">
+                <div className="row justify-content-center align-item-center">
+                    <img src={`${PF}img.png`} className='profilePicture rounded-circle' alt=''/>
                 </div>
                 
             </div>
@@ -36,13 +50,25 @@ export default function Profile() {
                  </span>
             </div>
         </div>
-        <div className="row shadow-sm  bg-light p-5">
+        <div className="row shadow-sm  bg-light ">
+            <div className="col-2 h-auto bg-white border-end">
+                <ul class="list-group list-group-flush">
+        
+                    <Link to="/" style={{textDecoration:"none"}}>
+                        <li class="list-group-item"><HomeOutlinedIcon fontSize='large'/>Home</li>
+                    </Link>
+                
+                        <li class="list-group-item"  data-bs-toggle="modal" data-bs-target="#exampleModal" ><AddCircleOutlineOutlinedIcon fontSize='large'/>Nuovo Post <SharePost/> </li>
+                        <li class="list-group-item"><ExitToAppOutlinedIcon fontSize='large'/>Esci</li>
+    
+     </ul>
+            </div>
            
-            <div className="col-10 offset-1">
+            <div className="col-10 p-5 ">
                 <div className="row">{Posts.map( (p) =>(<ProfilePost key={p.id} post ={p} />))}</div>
             </div>
         </div>
     </div>
-   
+   </>
   )
 }

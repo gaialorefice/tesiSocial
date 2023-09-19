@@ -1,33 +1,43 @@
 import React from 'react'
 import './login.css'
+import Signup from '../signup/Signup'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   return (
-    <div className='bg'>
-        <div className='d-flex flex-row '>
-            <div className='d-flex  col-md-7  justify-content-center align-items-center'> 
-              <div>
-                <p className='fs-1 text-break'></p>
-                <p className='fs-4 text-break text-light'>Accedi per entrare in contatto con nuove persone!</p>
-
+    <div className='bg '>
+        <div className='row vh-100 justify-content-center align-items-center '>
+            <div className="col-md-7 "> 
+              <div className="row ">
+                <img src="../assets/postcard-wh.png" className='logo' alt="" />
+                  <span className='fs-4 text-break text-light'>Accedi per entrare in contatto con nuove persone!</span>
               </div>
-            </div>
-            <div className='d-flex vh-100 col-md-5 bg-white justify-content-center align-items-center shadow-lg'>
-                <div className="d-flex flex-column gap-3 box "> 
-                    <input className='row' placeholder='Email'/>
-                    <input className='row' placeholder='Password' />
-                    <a className='row' href="...">Password dimenticata?</a>
-                    {/* penso sia sbagliato */}
-                    <div className='row'>
-                    {/* <button type="button" className=" col-4 btn btn-outline-primary ">Login</button> */}
-                  
-                     <button type="button" className=" col-4 offset-md-4 btn btn-outline-primary ">LOGIN</button>
-                    </div>
-                    
-                </div>
                 
             </div>
+
+            <div className='col vh-100 col-md-5 bg-white shadow-lg  '> 
+
+              <form className="row vh-100 justify-content-center align-items-center ">
+                <div className=" d-flex flex-column  justify-content-center container box">
+                  <div className="mb-3 ">
+                      <input type="text" className="form-control border-primary"  placeholder="username"/>
+                  </div>
+                  <div className="mb-3">
+                      <input type="text" className="form-control border-primary" placeholder="password"/>
+                      <span className="forgottenPAssword">Password dimenticata?</span>
+                  </div>
+                  
+                    <button type="submit" className=" btn btn-outline-primary ">Accedi</button>
+                    <Link to="/signup"><span>Non sei ancora registrato? Registrati!</span></Link>
+                  </div>
+                 
+              </form>
+               
+            </div>
+            
+
           
+                      
         </div>
     </div>
   )
