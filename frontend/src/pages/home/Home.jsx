@@ -6,6 +6,8 @@ import Leftbar from '../components/leftbar/Leftbar'
 
 
 export default function Home() {
+
+
   return (
     <div>
       <>

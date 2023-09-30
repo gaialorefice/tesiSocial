@@ -1,21 +1,57 @@
 import React from 'react'
+const url = "http://localhost:5000/";
 
 export default function SharePost() {
+
+  function upload(){
+    
+    const imageElement = document.getElementById('myImage');
+    console.log(imageElement);
+
+    const formData = new FormData();
+    formData.append('file', imageElement.files[0]);
+
+    const options = {
+        method: 'POST',
+        body: formData
+    };
+
+
+    fetch(url,options).then(res =>{
+            if(res.ok){
+                return res.json()
+            }else{
+                console.log("errore")
+            }
+    }).then(data => {
+        console.log(data);
+        alert('Immagine caricata con successo!');
+    })
+    .catch(error => {
+        console.error(error);
+        alert('Si è verificato un errore durante il caricamento dell\'immagine.');
+    });
+  }
+
+
+
+
   return (
     <div>
-   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        ...
+      <div className="modal-body">
+        
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="file" id='myImage'/>
+        <button type="button" className="btn btn-primary" onClick={()=>{upload()}}>Save changes</button>
       </div>
     </div>
   </div>

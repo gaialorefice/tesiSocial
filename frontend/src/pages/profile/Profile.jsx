@@ -34,7 +34,7 @@ export default function Profile() {
                     <span className='usernameText fs-5 fw-bold'>percythearancinocat_</span>
                     <span className="profileDesc">Sono un gatto un po' pazzo</span>
                 </div> 
-                <button type="button" class="btn btn-outline-primary">Segui</button>
+                <button type="button" className="btn btn-outline-primary">Segui</button>
             </div>
 
         </div>
@@ -52,14 +52,14 @@ export default function Profile() {
         </div>
         <div className="row shadow-sm  bg-light ">
             <div className="col-2 h-auto bg-white border-end">
-                <ul class="list-group list-group-flush">
+                <ul className="list-group list-group-flush">
         
                     <Link to="/" style={{textDecoration:"none"}}>
-                        <li class="list-group-item"><HomeOutlinedIcon fontSize='large'/>Home</li>
+                        <li className="list-group-item"><HomeOutlinedIcon fontSize='large'/>Home</li>
                     </Link>
                 
-                        <li class="list-group-item"  data-bs-toggle="modal" data-bs-target="#exampleModal" ><AddCircleOutlineOutlinedIcon fontSize='large'/>Nuovo Post <SharePost/> </li>
-                        <li class="list-group-item"><ExitToAppOutlinedIcon fontSize='large'/>Esci</li>
+                        <li className="list-group-item"  data-bs-toggle="modal" data-bs-target="#exampleModal" ><AddCircleOutlineOutlinedIcon fontSize='large'/>Nuovo Post <SharePost/> </li>
+                        <li className="list-group-item"><ExitToAppOutlinedIcon fontSize='large'/>Esci</li>
     
      </ul>
             </div>
