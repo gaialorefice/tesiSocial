@@ -22,15 +22,16 @@ def run(path):
     #caricamento dell'immagine e preprocessing
     image =Image.open(path) #catica l'immagine
     input_tensor = preprocess(image) #preprocessa l'immagine
+    print(len(input_tensor))
     input_batch = input_tensor.unsqueeze(0) #aggiunge una dimensione di batch
-    #setta il il modello in evaluation mode
+    #setta il il modello in evaluation mode/ modalità di valutazione
     model.eval()
 
     # Perform inference: the process of running data points into a machine learning model to calculate an output such as a single numerical score
-    with torch.no_grad():
+    with torch.no_grad(): #disabilita i calcoli del gradiente durante l'inferenza del modello, migliora la velocità
         output = model(input_batch)
     print((output[0]))
-
+    print(output[0])
     # probabilities = torch.nn.functional.softmax(output[0],dim=0) #casse di probabilità, per la classificazione
 
     # predirected_class = torch.argmax(probabilities).item() #prende l'indice di della classe predetta
@@ -39,3 +40,8 @@ def run(path):
 
 
     print(path)
+
+    
+
+if __name__ == "__main__":
+    run("C:/Users/gaial/Documents/tesi2/services/uploads/ciao.jpg")

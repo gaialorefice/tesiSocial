@@ -15,6 +15,15 @@ router.post("/", async(req,res)=>{
     }
 });
 
+// router.get("/", async(req,res)=>{
+//     try {
+//         const dati = req.data;
+//         console.log('dati ricevuti', dati)
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// });
+
 //aggiornare un post
 router.put("/:id",async(req,res)=>{
     try{

@@ -25,20 +25,30 @@ export default function SharePost() {
             }
     }).then(data => {
         console.log(data);
-        alert('Immagine caricata con successo!');
+        
+        //fetch per mandare i dati a node
+        const optionss = {
+          method: 'GET'
+        }
+
+        fetch('http://localhost:8800/api/users/64eb6801e510512eb190f595', optionss).then().then(data =>{
+          console.log(data);
+        })    
+
+
+        alert('Immagine caricata con successo!',data);
     })
     .catch(error => {
-        console.error(error);
-        alert('Si è verificato un errore durante il caricamento dell\'immagine.');
+        
+        alert('Si è verificato un errore durante il caricamento dell\'immagine.',error);
     });
   }
 
 
 
-
   return (
     <div>
-   <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div className="modal" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">

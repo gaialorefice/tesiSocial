@@ -1,6 +1,9 @@
 from flask import Flask , request, jsonify
 import os
 from engine import *
+from vector import *
+
+
 
 app = Flask(__name__)
 
@@ -24,9 +27,17 @@ def upload_image():
 
 
   ### machine learnig
-  run(f"./uploads/{file.filename}")
+  # run(f"./uploads/{file.filename}")
+  datas = json.dumps(vector(f"./uploads/{file.filename}"))
 
-  return jsonify({'message':'Immagine caricata con successo'}), 200
+  print(datas)
+  print(len(datas)) # lungo perché conta adesso tutti i caratteri e non più il vettore
+  print(type(datas))
+  
+  response = jsonify(datas)
+  response.headers.add('Access-Control-Allow-Origin','http://localhost:3000') #per ottenere i permessi cors
+
+  return response, 200
 
 
 if __name__ == '__main__':

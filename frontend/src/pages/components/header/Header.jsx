@@ -20,7 +20,7 @@ export default function Header() {
             <div className="row align-items-center mt-2">
                 <div className=' col-6 offset-md-2 '>  
                     <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Trova nuovi utenti..." aria-label="Search Bar" aria-describedby="button-addon2"/>
+                        <input type="text" id="searchBox" className="form-control" placeholder="Trova nuovi utenti..." aria-label="Search Bar" aria-describedby="button-addon2"/>
                         <button className="btn btn-outline-secondary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
                     </div>  
                 </div>
