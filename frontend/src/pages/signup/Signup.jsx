@@ -5,36 +5,29 @@ import { Link } from 'react-router-dom'
 export default function Signup() {
 
 
-    const  [ formUtente , setFormUtente] = useState({
-        username:'',
-        name:'',
-        surname: '',
-        email:'',
-        password:'',
-    });
+    const handleSubmit = (e) => {
 
-     const  updateFormUtente = () =>{
-        setFormUtente({
-            
-        })
-
-     }
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormUtente({
-    //       ...formUtente,
-    //       [name]: value,
-    //     });
-    //   };
-
-      const option = {
-        method: 'POST',
-        body: JSON.stringify(formUtente),
-        };
-    
-      const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Dati inseriti:', formUtente);
+        console.log(e.target[1].value);
+        var data = JSON.stringify({
+            username: e.target[0].value,
+            name: e.target[1].value,
+            surname:  e.target[2].value,
+            email: e.target[3].value,
+            password: e.target[4].value,    
+        })
+        console.log(data);
+        const option = {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Accept": 'application/json',
+                "Content-Type": "application/json",
+              },
+            body: data,
+
+        };
+        console.log(option);
         fetch('http://localhost:8800/api/auth/register', option)
         .then(res=> res.json())
         .then(data =>{
@@ -59,19 +52,19 @@ export default function Signup() {
                     <form className="row h-auto justify-content-center align-items-center " onSubmit={handleSubmit}>
                         <div className="d-flex flex-column  justify-content-center box ">
                             <div className="mb-3">
-                                <input type="text" className="form-control border-primary" id="usernameInput" placeholder="Nome Utente" value={formUtente.username} onChange={(e) => setFormUtente(e.target.username)}/>
+                                <input type="text" name="username" className="form-control border-primary" id="usernameInput" placeholder="Nome Utente"/>
                             </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control border-primary" id="nameInput" placeholder="Nome" value={formUtente.name} onChange={(e) => setFormUtente(e.target.name)}/>
+                                <input type="text" name="name" className="form-control border-primary" id="nameInput" placeholder="Nome"/>
                             </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control border-primary" id="firstNameInput" placeholder="Cognome" value={formUtente.surname} onChange={(e) => setFormUtente(e.target.surname)}/>
+                                <input type="text" name="surname" className="form-control border-primary" id="firstNameInput" placeholder="Cognome"/>
                             </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control border-primary" id="emailInput" placeholder="Email" value={formUtente.email} onChange={(e) => setFormUtente(e.target.email)}/>
+                                <input type="text" name="email" className="form-control border-primary" id="emailInput" placeholder="Email"/>
                             </div>
                             <div className="mb-3">
-                                <input type="text" className="form-control border-primary" id="passwordInput" placeholder="Password"value={formUtente.password} onChange={(e) => setFormUtente(e.target.password)}/>
+                                <input type="password" name="password" className="form-control border-primary" id="passwordInput" placeholder="Password"/>
                             </div>
                             {/* <div className="mb-3">
                                 <input type="text" className="form-control border-primary" id="passCheckInput" placeholder="Conferma Password"/>

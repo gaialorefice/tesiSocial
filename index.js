@@ -37,6 +37,21 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
+
+
+
+var cors = require('cors');
+
+const corsOptions = {
+    origin: 'http://localhost:3000',  // L'URL del tuo frontend React
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,  // Abilita il supporto ai cookie o alle credenziali
+  };
+  
+app.use(cors(corsOptions));
+
+
+
 // app.use("/api/profile", userRoute);
 app.use("/api/auth",userAuth);
 app.use("/api/users",userAction);

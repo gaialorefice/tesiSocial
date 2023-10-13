@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useState } from 'react';
+
 const url = "http://localhost:5000/";
 
 export default function SharePost() {
 
+  const description = useRef(null);
   function upload(){
     
     const imageElement = document.getElementById('myImage');
@@ -24,15 +27,28 @@ export default function SharePost() {
                 console.log("errore")
             }
     }).then(data => {
-        console.log(data);
+        // console.log(data);
+        const arrayfl = data.slice(1,-1); //per rimuovere le parentesi [] ad inizio e fine
+        const array = arrayfl.split(', '); // per rimuovere la separazione degli elementi
+        //fetch per caricare il post in db
+        var dbdata = JSON.stringify({
+         vector: array,
+        });
         
-        //fetch per mandare i dati a node
-        const optionss = {
-          method: 'GET'
-        }
+        const option = {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+              "Accept": 'application/json',
+              "Content-Type": "application/json",
+            },
+          body: dbdata,
 
-        fetch('http://localhost:8800/api/users/64eb6801e510512eb190f595', optionss).then().then(data =>{
-          console.log(data);
+      };
+
+        fetch('http://localhost:8800/api/posts/', option ).then().then(data =>{
+           console.log(dbdata);
+           
         })    
 
 
@@ -41,10 +57,26 @@ export default function SharePost() {
     .catch(error => {
         
         alert('Si è verificato un errore durante il caricamento dell\'immagine.',error);
+        console.log(error);
     });
+  }
+  
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setSelectedImage(URL.createObjectURL(event.target.files[0]));
+      const previewBox = document.getElementById("previewImage");
+      previewBox.classList.remove('visually-hidden');
+    }
   }
 
 
+  const submitFunction =() => {
+   // this.input.click();
+    upload();
+  }
 
   return (
     <div>
@@ -52,16 +84,18 @@ export default function SharePost() {
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
-        
+        <img id='previewImage' alt='image preview' className='visually-hidden' src={selectedImage}/>
+        <input type="text" id="descPost" ref={description} />
       </div>
       <div className="modal-footer">
+        
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <input type="file" id='myImage'/>
-        <button type="button" className="btn btn-primary" onClick={()=>{upload()}}>Save changes</button>
+        <input type="file" id='myImage' className='filetype'  onChange={onImageChange}/>
+       
+        <button type="button" className="btn btn-primary" onClick={submitFunction}>Save changes</button>
       </div>
     </div>
   </div>

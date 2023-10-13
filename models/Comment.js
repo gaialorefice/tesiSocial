@@ -6,27 +6,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
-    desc:{
+    postId:{
         type: String,
-        max: 500
+       
     },
-    img:{
+    comm:{
         type: String,
-        // require: true,
-    },
-    likes:{
-        type: Array,
-        default: [],
     },
 
-    vector:{
-       type: Array,
-       default:[]
-    },
-    comments:{
-        type: Array,
-        default:[]
-    },
 },
     {timestamps: true}, 
 );
