@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './feed.css'
 import SharePost from '../share/SharePost'
 import Post from '../post/Post'
+import axios from 'axios'
+// import { Posts } from '../../../PostProva'
 
-import { Posts } from '../../../PostProva'
+export default function Feed({profile}) {
 
-export default function Feed() {
+  const [posts, setPosts] = useState([]);
+
+
+  useEffect( ()=>{
+    console.log("feed renderizzato");
+  
+    const fetchPosts = async () =>{
+      const res = await axios.get("posts/feed/65285dbc1f784f6cb435f4f0");
+      setPosts(res.data)
+    }
+    
+    fetchPosts();
+
+  },[]) //mettendo l'array vuoto renderizza una sola volta?, è una dipendenza
+
   return (
     <div className="col-10 bg-light">
       
@@ -14,7 +30,7 @@ export default function Feed() {
         <div className="col-6 offset-md-2 feedbox ">
              
              <SharePost/>
-              {Posts.map( (p) =>(<Post key={p.id} post ={p} />))}
+              {posts.map( (p) =>(<Post key={p._id} post ={p} />))}
              
              
         </div>

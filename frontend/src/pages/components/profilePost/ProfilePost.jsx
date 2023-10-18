@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -6,11 +6,28 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Users } from '../../../PostProva';
 import './profilepost.css'
 
+import axios from 'axios';
 export default function ProfilePost({post}) {
     
   const [like,setLike]=useState(post.likes)//hooks?
   const [isLiked,setIsLiked]=useState(false)//hooks?
   const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const [posts, setPosts] = useState([]);
+
+
+  // useEffect( ()=>{
+  //   console.log("feed renderizzato");
+  
+  //   const fetchPosts = async () =>{
+  //     const res = await axios.get("posts/profile/65285dbc1f784f6cb435f4f0");
+  //     setPosts(res.data)
+  //   }
+    
+  //   fetchPosts();
+
+  // },[]) //mettendo l'array vuoto renderizza una sola volta?, è una dipendenza
+
 
   const likeHandler =()=>{ //arrow function
       setLike(isLiked? like-1: like+1)

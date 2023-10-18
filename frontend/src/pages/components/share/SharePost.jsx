@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { useState } from 'react';
-
+import "./sharepost.css"
 const url = "http://localhost:5000/";
 
 export default function SharePost() {
@@ -30,9 +30,16 @@ export default function SharePost() {
         // console.log(data);
         const arrayfl = data.slice(1,-1); //per rimuovere le parentesi [] ad inizio e fine
         const array = arrayfl.split(', '); // per rimuovere la separazione degli elementi
+        
+
+      var arrayDouble = array.map(function(string){
+        var ciao = parseFloat(parseFloat(string).toFixed(2))
+        return ciao
+      });
+      console.log(arrayDouble);
         //fetch per caricare il post in db
         var dbdata = JSON.stringify({
-         vector: array,
+         vector: arrayDouble,
         });
         
         const option = {
@@ -46,8 +53,8 @@ export default function SharePost() {
 
       };
 
-        fetch('http://localhost:8800/api/posts/', option ).then().then(data =>{
-           console.log(dbdata);
+        fetch('posts/', option ).then().then(data =>{
+           //console.log(dbdata);
            
         })    
 
@@ -55,9 +62,9 @@ export default function SharePost() {
         alert('Immagine caricata con successo!',data);
     })
     .catch(error => {
-        
+      console.log(error);
         alert('Si è verificato un errore durante il caricamento dell\'immagine.',error);
-        console.log(error);
+        
     });
   }
   
@@ -74,32 +81,35 @@ export default function SharePost() {
 
 
   const submitFunction =() => {
-   // this.input.click();
     upload();
   }
 
+  
   return (
-    <div>
-   <div className="modal" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="modal fade" id="exampleModal" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div className="modal-dialog modal-lg">
+
+              <div className="modal-content">
+
+                <div className="modal-header">
+                <input type="file" id='myImage' className='filetype'  onChange={onImageChange}/>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div className="modal-body">
+                  <img id='previewImage' alt=' '  className='visually-hidden' src={selectedImage}/>
+                  <input type="text" id="descPost" ref={description} />
+                </div>
+
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 
+                  <button type="button" className="btn btn-primary" onClick={submitFunction}>Save changes</button>
+                </div>
+
+              </div>
+            </div>
       </div>
-      <div className="modal-body">
-        <img id='previewImage' alt='image preview' className='visually-hidden' src={selectedImage}/>
-        <input type="text" id="descPost" ref={description} />
-      </div>
-      <div className="modal-footer">
-        
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <input type="file" id='myImage' className='filetype'  onChange={onImageChange}/>
-       
-        <button type="button" className="btn btn-primary" onClick={submitFunction}>Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-    </div>
   )
 }
