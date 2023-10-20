@@ -1,16 +1,23 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { useState } from 'react';
 import "./sharepost.css"
+import { AuthContext } from '../../context/AuthContext';
+
 const url = "http://localhost:5000/";
 
 export default function SharePost() {
 
   const description = useRef(null);
+
+  const {user} = useContext(AuthContext);
+  const [imgName, setImgName] = useState(null);
+
   function upload(){
-    
+   
     const imageElement = document.getElementById('myImage');
     console.log(imageElement);
-
+   
     const formData = new FormData();
     formData.append('file', imageElement.files[0]);
 
@@ -33,13 +40,16 @@ export default function SharePost() {
         
 
       var arrayDouble = array.map(function(string){
-        var ciao = parseFloat(parseFloat(string).toFixed(2))
-        return ciao
+        var arr = parseFloat(parseFloat(string).toFixed(2))
+        return arr;
       });
       console.log(arrayDouble);
         //fetch per caricare il post in db
         var dbdata = JSON.stringify({
-         vector: arrayDouble,
+          userId: user._id,
+          desc: description.current.value,
+          img:"",
+          vector: arrayDouble,
         });
         
         const option = {
@@ -52,6 +62,7 @@ export default function SharePost() {
           body: dbdata,
 
       };
+
 
         fetch('posts/', option ).then().then(data =>{
            //console.log(dbdata);
@@ -88,24 +99,27 @@ export default function SharePost() {
   return (
         <div className="modal fade" id="exampleModal" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-            <div className="modal-dialog modal-lg">
+            <div className="modal-dialog ">
 
               <div className="modal-content">
 
                 <div className="modal-header">
-                <input type="file" id='myImage' className='filetype'  onChange={onImageChange}/>
+                    <label htmlFor='myImage'>
+                       <span className='border p-2 border-primary rounded bg-primary ' style={{color : 'white'}}> <DriveFolderUploadIcon fontSize='large'  /> Scegli un immagine </span>
+                      <input type="file" id='myImage' className='btn btn-primary filetype visually-hidden' accept='.png,.jpeg,.jpg'  onChange={onImageChange}/>
+                    </label>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div className="modal-body">
-                  <img id='previewImage' alt=' '  className='visually-hidden' src={selectedImage}/>
-                  <input type="text" id="descPost" ref={description} />
+                  <img id='previewImage' alt=' '  className='visually-hidden img-fluid  mx-auto pb-3' src={selectedImage}/>
+                  <textarea name="descPost" cols="50"  maxLength="250" placeholder="Aggiungi una descrizione..." id="descPost" ref={description}></textarea>
                 </div>
 
                 <div className="modal-footer">
                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                  
-                  <button type="button" className="btn btn-primary" onClick={submitFunction}>Save changes</button>
+                  <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={submitFunction}>Save changes</button>
                 </div>
 
               </div>

@@ -37,7 +37,7 @@ router.put("/:id",async(req,res)=>{
     }catch(error){
         res.status(500).json(error)
     }
-})
+});
 
 //cancellare un post
 router.delete("/:id",async(req,res)=>{
@@ -52,7 +52,7 @@ router.delete("/:id",async(req,res)=>{
     }catch(error){
         res.status(500).json(error)
     }
-})
+});
 //mettere e rimuovere like ad un post
 router.put("/:id/like", async(req,res)=>{
     try {
@@ -67,7 +67,7 @@ router.put("/:id/like", async(req,res)=>{
     } catch (error) {
         res.status(500).json(error);
     }
-})
+});
 
 //trovare un post
 
@@ -79,7 +79,7 @@ router.get("/:id", async(req,res)=>{
         res.status(500).json(error);
     }
 
-})
+});
 
 router.post("/search", async (req,res)=>{
 
@@ -99,11 +99,11 @@ router.post("/search", async (req,res)=>{
         console.log(results);
         res.status(200).json(results)
    
-})
+});
 
 //feed 
 router.get("/feed/:userId", async(req,res)=>{
-   
+    console.log(req.params.userId);
     try {
         
         const currentUser = await User.findById(req.params.userId);
@@ -118,7 +118,7 @@ router.get("/feed/:userId", async(req,res)=>{
         res.status(500).json(error);
        
     }
-})
+});
 
 //tutti ipost di un utente
 router.get("/profile/:username", async(req,res)=>{
@@ -126,12 +126,12 @@ router.get("/profile/:username", async(req,res)=>{
     try {
         const user = await User.findOne({username:req.params.username})
        const posts = await Post.find({userId:user._id})
-       res.status(200).json(post)
+       res.status(200).json(posts)
        
     } catch (error) {
         res.status(500).json(error);
        
     }
-})
+});
 
 module.exports = router;

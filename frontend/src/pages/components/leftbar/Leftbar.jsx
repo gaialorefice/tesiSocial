@@ -7,29 +7,30 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { Link } from 'react-router-dom';
 import SharePost from '../share/SharePost';
-
-const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
-
-
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 
 
-export default function Leftbar({profile}) {
 
+export default function Leftbar({from}) {
+  
+  const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+  const {user, isFetching, error, dispatch} = useContext(AuthContext);
 
     return(
       <div id='leftbar' className='col-2 pt-5 border-end bg-white'>
         <div className="row offset-md-2">
-          {profile? <img src={PF+'pfp/img.png'} className='profilePicture visually-hidden rounded-circle' alt=''/>
-          : <img src={PF+'pfp/img.png'} className='profilePicture rounded-circle' alt=''/>
+          {from === 'profile' ? <img src={PF+'pfp/pfp.png'} className='profilePicture visually-hidden rounded-circle' alt=''/>
+          : <img src={user.profilePicture? PF+"pfp/"+user.profiePicture : PF+'pfp/pfp.png'} className='profilePicture rounded-circle' alt=''/>
           }
             
             <div className="row mt-5">
         <ul className="list-group list-group-flush">
-          {profile ? 
+          {from === 'profile' ? 
             <Link to="/" style={{textDecoration:"none"}}>
               <li className="list-group-item"><HomeOutlinedIcon fontSize='large'/>Home</li>
             </Link>
-          : <Link to="/profile/:username" style={{textDecoration:"none"}}>
+          : <Link to={"/profile/"+user.username} style={{textDecoration:"none"}}>
               <li className="list-group-item"><PersonOutlinedIcon fontSize='large'/>Profilo</li>
             </Link>
           }

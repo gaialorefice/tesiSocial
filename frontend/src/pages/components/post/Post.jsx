@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './post.css'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -9,6 +9,7 @@ import Search from '../search/Search';
 
 import TimeAgo from "react-timeago";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Post({post}) {
     
@@ -16,19 +17,30 @@ export default function Post({post}) {
     const [isLiked,setIsLiked]=useState(false)//hook
     const [user, setUser] = useState({})
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+    const {user:currentUser} = useContext(AuthContext);
+
+    useEffect(()=>{
+      setIsLiked(post.likes.includes(currentUser._id))
+    },[currentUser._id, post.likes]);
+
 
     useEffect( ()=>{
       console.log("feed renderizzato");
       const fetchUser = async () =>{
-        const res = await axios.get(`users/${post.userId}`);
+        const res = await axios.get(`/users?userId=${post.userId}`);
         setUser(res.data)
-      }
+      };
       
       fetchUser();
   
-    },[post.userId]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
+    },[post.userId]) // è una dipendenza, quando cambia l'id deve renderizzare nuiovamente
 
     const likeHandler =()=>{ //arrow function
+        try {
+          axios.put("/posts/"+post._id+"/like",{userId:currentUser._id});
+        } catch (error) {
+          
+        }
         setLike(isLiked? like-1: like+1)
         setIsLiked(!isLiked) 
     }
@@ -49,12 +61,12 @@ export default function Post({post}) {
               <div className="row-2 ms-auto mt-3">
                 
                 <button type="button " className="btn btn-outline-primary " onClick={() => {getVector()}}><SearchOutlinedIcon/></button>
-                 <Search /> 
+              
                 <MoreVertIcon />
                
               </div>
              
-              <img src={PF+"postimg/"+post.img} className="card-img-top p-2" onClick={likeHandler} alt="..."/> 
+              <img src={PF+"/postimg/"+post.img} className="card-img-top p-2" onClick={likeHandler} alt="..."/> 
 
               <div className="card-body">
             
@@ -63,7 +75,7 @@ export default function Post({post}) {
 
                 <div className="d-flex align-items-center postInfo">
                   <Link to={`profile/${user.username}`}>
-                    <img src={user.profiePicture || PF+"/pfp/pfp.png"} className="card-img-top profilePicturePost rounded-circle" onClick={likeHandler} alt="..."/>
+                    <img src={user.profiePicture || PF+"pfp/pfp.png"} className="card-img-top profilePicturePost rounded-circle" onClick={likeHandler} alt="..."/>
                   </Link>
                   <h5 className="card-title ms-2">{user.username}</h5>
                 </div>

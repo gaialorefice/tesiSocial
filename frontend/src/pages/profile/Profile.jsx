@@ -1,29 +1,42 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './profile.css'
-import Post from '../components/post/Post'
-import ProfilePost from '../components/profilePost/ProfilePost'
-import { Posts } from '../../PostProva'
+
+
+
 import { useState, useEffect } from 'react'
-
-
-import SharePost from '../components/share/SharePost'
-
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { useParams } from 'react-router'
 
 import Header from '../components/header/Header'
 import Feed from '../components/feed/Feed'
 import Leftbar from '../components/leftbar/Leftbar'
+import { AuthContext } from '../context/AuthContext'
 
 
 
 export default function Profile() {
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
-    const [user, setUser] = useState({})
+    const username = useParams().username;
+    const {user:currentUser} = useContext(AuthContext);
+    
     // const [followers, setFollowers] = useState(user.followers.length)
     // const [followings,setFollowings] = useState(user.followings.length)
-    const [posts, setPosts] = useState([]);
+   
 
+    const [user, setUser] = useState({})
+    
 
+    useEffect( ()=>{
+      console.log("feed renderizzato");
+      const fetchUser = async () =>{
+        console.log(username);
+        const res = await axios.get(`http://localhost:8800/api/users?username=${username}`);
+        setUser(res.data)
+      }
+      
+      fetchUser();
+  
+    },[username]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
 
   return (
     <>
@@ -32,7 +45,7 @@ export default function Profile() {
         <div className="row mt-5 ">
             <div className="col-2 border-end">
                 <div className="row justify-content-center align-item-center">
-                    <img src={PF+'pfp/img.png'} className='profilePicture rounded-circle' alt=''/>
+                    <img src={user.profilePicture? PF+"pfp/"+user.profiePicture : PF+'pfp/pfp.png'} className='profilePicture rounded-circle' alt=''/>
                 </div>
                 
             </div>
@@ -48,22 +61,24 @@ export default function Profile() {
         <div className="row border-bottom shadow-sm">
             <div className="col-3 offset-md-3 ">
                 <span className="d-flex followerCounter justify-content-center">
-                    {/* {followers} follower */}
+                    {currentUser.followers.length} Followers
                 </span>
             </div>
             <div className="col-3">
                 <span className="d-flex followingCounter justify-content-center">
-                    {/* {followings} Seguiti */}
+                    {currentUser.followings.length} Following
                  </span>
             </div>
         </div>
         <div className="row shadow-sm  bg-light ">
-            <Leftbar profile/>
+            <Leftbar from="profile" user = {user}/>
             <div className="col-10 p-5 ">
-                <div className="row">
+                {/* <div className="row">
                     {Posts.map( (p) =>(<ProfilePost key={p._id} post ={p} />))}
-                    {/* <Feed profile/> */}
-                </div>
+                    <Feed profile/>
+                   </div> */}
+                   <Feed username = {username} />
+                 
             </div>
         </div>
     </div>

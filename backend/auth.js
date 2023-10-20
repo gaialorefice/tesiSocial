@@ -48,6 +48,6 @@ router.post("/login", async(req,res)=> {
     }catch(err) {
         res.status(500).json(err); //codice 500 internal server error
     }   
-})
+});
 
 module.exports = router;
