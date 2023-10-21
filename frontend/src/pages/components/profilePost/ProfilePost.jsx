@@ -53,7 +53,8 @@ export default function ProfilePost({post}) {
         // </div>
         
         <div className="card col-4 align-items-center mx-2 mb-5" style={{"width": 450}}>
-          <img src={PF+post.img} className='postImage p-2 rounded-2' onClick={likeHandler} alt=''/>
+          
+          <img src={PF+"postimg/"+post.img} className='postImage p-2 rounded-2' onClick={likeHandler} alt=''/>
           <div className="card-body ">
             <div className="row justify-content-start">
               <span className="likeCounter fw-bold"onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>

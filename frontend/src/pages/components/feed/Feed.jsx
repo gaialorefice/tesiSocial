@@ -20,7 +20,7 @@ export default function Feed({username}) {
     console.log(user);
     
     const fetchPosts = async () =>{
-      const res = username ? await axios.get("posts/profile/"+ username) : await axios.get("posts/feed/"+user._id) 
+      const res = username ? await axios.get("http://localhost:8800/api/posts/profile/"+ username) : await axios.get("http://localhost:8800/api/posts/feed/"+user._id) 
       
       setPosts(res.data)
     }

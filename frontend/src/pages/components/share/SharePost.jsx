@@ -9,7 +9,7 @@ const url = "http://localhost:5000/";
 export default function SharePost() {
 
   const description = useRef(null);
-
+  const imgRef = useRef(null);
   const {user} = useContext(AuthContext);
   const [imgName, setImgName] = useState(null);
 
@@ -21,12 +21,13 @@ export default function SharePost() {
     const formData = new FormData();
     formData.append('file', imageElement.files[0]);
 
+
     const options = {
         method: 'POST',
         body: formData
     };
 
-
+    
     fetch(url,options).then(res =>{
             if(res.ok){
                 return res.json()
@@ -34,8 +35,8 @@ export default function SharePost() {
                 console.log("errore")
             }
     }).then(data => {
-        // console.log(data);
-        const arrayfl = data.slice(1,-1); //per rimuovere le parentesi [] ad inizio e fine
+        console.log(data);
+        const arrayfl = data.vector.slice(1,-1); //per rimuovere le parentesi [] ad inizio e fine prende il campo vector del file toprnato da python
         const array = arrayfl.split(', '); // per rimuovere la separazione degli elementi
         
 
@@ -48,10 +49,11 @@ export default function SharePost() {
         var dbdata = JSON.stringify({
           userId: user._id,
           desc: description.current.value,
-          img:"",
+          img:data.name, //prende il campo nome dall'oggetto tornato da python
           vector: arrayDouble,
         });
         
+        console.log(imgName);
         const option = {
           method: 'POST',
           credentials: 'include',
@@ -64,19 +66,22 @@ export default function SharePost() {
       };
 
 
-        fetch('posts/', option ).then().then(data =>{
-           //console.log(dbdata);
+        fetch('posts/', option ).then(res =>{
+          if(res.ok){
+              return res.json()
+          }else{
+              console.log("errore")
+          }
+        }).then(data =>{
+           console.log(dbdata);
+           window.location.reload(false);
+
            
         })    
 
 
-        alert('Immagine caricata con successo!',data);
+        // alert('Immagine caricata con successo!',data);
     })
-    .catch(error => {
-      console.log(error);
-        alert('Si è verificato un errore durante il caricamento dell\'immagine.',error);
-        
-    });
   }
   
   const [selectedImage, setSelectedImage] = useState(null);
@@ -84,6 +89,8 @@ export default function SharePost() {
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
+      setImgName(imgRef.current.files[0].name);
+      
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
       const previewBox = document.getElementById("previewImage");
       previewBox.classList.remove('visually-hidden');
@@ -106,7 +113,7 @@ export default function SharePost() {
                 <div className="modal-header">
                     <label htmlFor='myImage'>
                        <span className='border p-2 border-primary rounded bg-primary ' style={{color : 'white'}}> <DriveFolderUploadIcon fontSize='large'  /> Scegli un immagine </span>
-                      <input type="file" id='myImage' className='btn btn-primary filetype visually-hidden' accept='.png,.jpeg,.jpg'  onChange={onImageChange}/>
+                      <input type="file" id='myImage' className='btn btn-primary filetype visually-hidden' ref={imgRef} accept='.png,.jpeg,.jpg'  onChange={onImageChange}/>
                     </label>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
