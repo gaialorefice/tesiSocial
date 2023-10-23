@@ -24,19 +24,35 @@ export default function Profile() {
    
 
     const [user, setUser] = useState({})
-    
+    const [followings, setFollowings] = useState([]);
+    const [followers, setFollowers] = useState([]);
 
     useEffect( ()=>{
       console.log("feed renderizzato");
+
       const fetchUser = async () =>{
         console.log(username);
         const res = await axios.get(`http://localhost:8800/api/users?username=${username}`);
         setUser(res.data)
       }
+
+      const fetchFollowings = async()=>{
+        const followingList = await axios.get('http://localhost:8800/api/users/followings/'+currentUser._id);
+        setFollowings(followingList.data);
+      }
+
+      const fetchFollowers = async () =>{
+        const followerList = await axios.get('http://localhost:8800/api/users/followers/'+currentUser._id);
+        setFollowers(followerList.data);
+      }
       
       fetchUser();
+      fetchFollowings();
+      fetchFollowers();
+      console.log(currentUser);
+
   
-    },[username]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
+    },[username, currentUser._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
 
   return (
     <>
@@ -61,12 +77,12 @@ export default function Profile() {
         <div className="row border-bottom shadow-sm">
             <div className="col-3 offset-md-3 ">
                 <span className="d-flex followerCounter justify-content-center">
-                    {currentUser.followers.length} Followers
+                    {followers.length} Followers
                 </span>
             </div>
             <div className="col-3">
                 <span className="d-flex followingCounter justify-content-center">
-                    {currentUser.followings.length} Following
+                    {followings.length} Following
                  </span>
             </div>
         </div>

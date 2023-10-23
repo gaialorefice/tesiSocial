@@ -1,0 +1,11 @@
+.postImage{
+    width: 450px;
+    height: 400px;
+   object-fit: cover;
+
+}
+
+.boxPicture{
+    width: 450px;
+    height: 450px;
+}

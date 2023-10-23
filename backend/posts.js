@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 //creare un post
 router.post("/", async(req,res)=>{
@@ -97,8 +98,8 @@ router.post("/search", async (req,res)=>{
 
         }]);
         console.log(results);
-        res.status(200).json(results)
-   
+        return res.status(200).json(results)
+        
 });
 
 //feed 
@@ -133,5 +134,30 @@ router.get("/profile/:username", async(req,res)=>{
        
     }
 });
+
+
+//prova funzionamento funzione nuovo post
+
+// POST: Crea un nuovo commento in un post
+router.post('/posts/:postId/comments', async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.postId);
+      if (!post) {
+        
+        return res.status(404).json({ message: 'Post non trovato' });
+      }
+  
+      const newComment = new Comment(req.body)
+  
+      const savedComment = await newComment.save();
+      await post.updateOne({$push:{comments:savedComment}})
+      await post.save();
+  
+      return res.status(200).json(newComment);
+    } catch (error) {
+      return res.status(500).json({ error: 'Errore nella creazione del commento' });
+    }
+  });
+  
 
 module.exports = router;

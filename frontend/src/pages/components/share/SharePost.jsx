@@ -24,7 +24,8 @@ export default function SharePost() {
 
     const options = {
         method: 'POST',
-        body: formData
+        body: formData,
+        mode: "no-cors",
     };
 
     
@@ -40,17 +41,17 @@ export default function SharePost() {
         const array = arrayfl.split(', '); // per rimuovere la separazione degli elementi
         
 
-      var arrayDouble = array.map(function(string){
-        var arr = parseFloat(parseFloat(string).toFixed(2))
-        return arr;
-      });
-      console.log(arrayDouble);
+      // var arrayDouble = array.map(function(string){
+      //   var arr = parseFloat(parseFloat(string).toFixed(2))
+      //   return arr;
+      // });
+      // console.log(arrayDouble);
         //fetch per caricare il post in db
         var dbdata = JSON.stringify({
           userId: user._id,
           desc: description.current.value,
           img:data.name, //prende il campo nome dall'oggetto tornato da python
-          vector: arrayDouble,
+          vector: array,
         });
         
         console.log(imgName);
@@ -120,7 +121,7 @@ export default function SharePost() {
 
                 <div className="modal-body">
                   <img id='previewImage' alt=' '  className='visually-hidden img-fluid  mx-auto pb-3' src={selectedImage}/>
-                  <textarea name="descPost" cols="50"  maxLength="250" placeholder="Aggiungi una descrizione..." id="descPost" ref={description}></textarea>
+                  <textarea name="descPost" cols="50" style={{borderStyle: "none", width: "100%"}} maxLength="250" placeholder="Aggiungi una descrizione..." id="descPost" ref={description}></textarea>
                 </div>
 
                 <div className="modal-footer">

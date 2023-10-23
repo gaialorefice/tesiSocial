@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema({
+const CommSchema = new mongoose.Schema({
 
     userId: {
         type: String,
         // required: true,
     },
+    username:{
+        type: String,
+    },
     postId:{
         type: String,
        
     },
-    comm:{
+    text:{
         type: String,
     },
 

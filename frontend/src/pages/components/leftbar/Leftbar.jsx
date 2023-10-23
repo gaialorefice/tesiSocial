@@ -21,7 +21,7 @@ export default function Leftbar({from}) {
       <div id='leftbar' className='col-2 pt-5 border-end bg-white'>
         <div className="row offset-md-2">
           {from === 'profile' ? <img src={PF+'pfp/pfp.png'} className='profilePicture visually-hidden rounded-circle' alt=''/>
-          : <img src={user.profilePicture? PF+"pfp/"+user.profiePicture : PF+'pfp/pfp.png'} className='profilePicture rounded-circle' alt=''/>
+          : <img src={user.profilePicture? PF+"pfp/"+user.profilePicture : PF+'pfp/pfp.png'} className='profilePicture rounded-circle' alt=''/>
           }
             
             <div className="row mt-5">

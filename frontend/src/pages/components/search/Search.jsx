@@ -1,22 +1,36 @@
 import React from 'react'
-
+import SearchPost from '../searchPost/SearchPost';
+import { useState } from 'react';
 
 const url = "http://localhost:5000/";
 
-export default function Search() {
+export default function Search({post}) {
 
-    //impostare i parametri per la query
-    // effettuare la query
-    //stampare quello che ho trovato
+  const [posts, setPosts] = useState([]);
+  //modale per vedere tutti i risultati
 
-    // passaggi da fare:
-    // prendere il componente vettore del post
-    // salvarlo in una variabile
-    // effettuare la query con il vettore
-    // stampare i risulati
   return (
     <div>
      
+
+      <div className="modal fade" id="searchModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog modal-lg modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">Ricerca effettuata...</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+                {post.map( (p) =>(<SearchPost key={p._id} post ={p} />))}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
