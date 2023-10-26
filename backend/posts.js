@@ -98,7 +98,7 @@ router.post("/search", async (req,res)=>{
 
         }]);
         console.log(results);
-        return res.status(200).json(results)
+        res.status(200).json(results)
         
 });
 
@@ -139,7 +139,7 @@ router.get("/profile/:username", async(req,res)=>{
 //prova funzionamento funzione nuovo post
 
 // POST: Crea un nuovo commento in un post
-router.post('/posts/:postId/comments', async (req, res) => {
+router.post('/:postId/comments', async (req, res) => {
     try {
       const post = await Post.findById(req.params.postId);
       if (!post) {
@@ -158,6 +158,30 @@ router.post('/posts/:postId/comments', async (req, res) => {
       return res.status(500).json({ error: 'Errore nella creazione del commento' });
     }
   });
+
+  //GET commenti in un post
+// router.get('/:postId/comments', async (req, res) => {
+
+//         const post = await Post.findById(req.params.postId); 
+//         if (!post) {
+        
+//             return res.status(404).json({ message: 'Post non trovato' });
+//           }
+//         const comment = Promise.all(
+//             post.comments.map(comId =>{
+//                 return Comment.findById(comId)
+//         }))
+
+//     let commentsList = [];
+//     (await comment).map((com) =>{
+//         const {_id, userId, comm} = com;
+//         followersList.push({_id,userId,comm});
+//     })
+//     res.status(200).json(commentsList);
+
+ 
+//   });
+
   
 
 module.exports = router;

@@ -66,47 +66,38 @@ router.get("/",async(req,res)=>{
 
 //get followings
 
-router.get("/followings/:userId", async(req,res)=>{
-    try {
-        const user = await User.findById(req.params.userId);
-        const followings = Promise.all(
-            user.followings.map(followingsId => {
-            return User.findById(followingsId)
-        }));
-        let followingList = [];
-        (await followings).map((follow) => {
-            const {_id,username, profilePicture} = follow;
-            followingList.push({_id,username,profilePicture});
-        })
-        return res.status(200).json(followingList)
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-    
-})
+// router.get("/followings/:userId", async(req,res)=>{
+   
+//         const user = await User.findById(req.params.userId);
+//         const followings = await Promise.all(
+//             user.followings.map(followingsId => {
+//             return User.findById(followingsId)
+//         }));
+//         res.status(200).json(followings);
+// })
 
 //get followers
 
-router.get("/followers/:userId", async(req,res) =>{
-    try {
-        const user = await User.findById(req.params.userId);
-    const followers = Promise.all(
-        user.followers.map(followersId =>{
-            return User.findById(followersId)
-        })
-    )
-    let followersList = [];
-    (await followers).map((follow) =>{
-        const {_id, username,profilePicture} = follow;
-        followersList.push({_id,username,profilePicture});
-    })
-    return res.status(200).json(followersList);
+// router.get("/followers/:userId", async(req,res) =>{
+//     try {
+//         const user = await User.findById(req.params.userId);
+//     const followers = Promise.all(
+//         user.followers.map(followersId =>{
+//             return User.findById(followersId)
+//         })
+//     )
+//     let followersList = [];
+//     (await followers).map((follow) =>{
+//         const {_id, username,profilePicture} = follow;
+//         followersList.push({_id,username,profilePicture});
+//     })
+//     return res.status(200).json(followersList);
 
-    } catch (error) {
-        return res.status(500).json(error);
-    }
+//     } catch (error) {
+//         return res.status(500).json(error);
+//     }
     
-})
+// })
 
 
 //follow

@@ -9,10 +9,11 @@ import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import axios from 'axios';
 import Search from '../search/Search';
 
+
 import TimeAgo from "react-timeago";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import Comment from '../comment/Comment';
+
 
 
 export default function Post({post}) {
@@ -21,7 +22,9 @@ export default function Post({post}) {
     const [isLiked,setIsLiked]=useState(false)//hook
     const [user, setUser] = useState({})
     const [search,setSearch] = useState([])
-    const [comment, setComment] = useState([])
+
+    const [modalKey, setModalKey] = useState(0);
+    
 
     const newCommentText = useRef(null);
     
@@ -32,29 +35,25 @@ export default function Post({post}) {
       setIsLiked(post.likes.includes(currentUser._id))
     },[currentUser._id, post.likes]);
 
-    useEffect(() =>{
-      const fetchComments = async ()=>{
-        try {
+    // useEffect(() =>{
+    //   const fetchComments = async ()=>{
+
         
-          const res = await axios.get("posts/posts/"+post._id+"/comments");
-          if(res.data){
-            setComment(res.data)
-          }else{
-            console.log("non ci sono commenti");
-          }
+    //       const res = await axios.get("http://localhost:8800/api/posts/"+post._id+"/comments");
+       
+    //         setComment(res.data)
+        
           
-        } catch (error) {
-          console.log(error);
-        }
-        
-      }
-      fetchComments();
-    },[post._id])
+       
+    //     }
+      
+    //   fetchComments();
+    // },[post._id])
 
     useEffect( ()=>{
       console.log("feed renderizzato");
       const fetchUser = async () =>{
-        const res = await axios.get(`/users?userId=${post.userId}`);
+        const res = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`);
         setUser(res.data)
       };
       
@@ -64,7 +63,7 @@ export default function Post({post}) {
 
     const likeHandler =()=>{ //arrow function
         try {
-          axios.put("/posts/"+post._id+"/like",{userId:currentUser._id});
+          axios.put("http://localhost:8800/api/posts/"+post._id+"/like",{userId:currentUser._id});
         } catch (error) {
           
         }
@@ -74,35 +73,77 @@ export default function Post({post}) {
 
     function newComment(){
       var payload ={
-          postId: post._id,
           userId: currentUser._id,
           username: currentUser.username,
           text: newCommentText.current.value,
       }
 
-      axios.post("http://localhost:8800/posts/posts/"+post._id+"/comments",payload);
+      axios.post("http://localhost:8800/api/posts/"+post._id+"/comments", payload);
+      console.log(payload);
       console.log("commento aggiunto");
     }
     
     function getVector(){
+
+      console.log(search);
+      console.log(typeof(search));
       const payload = {post:post}
       axios.post("posts/search", payload).then((res) =>{
         console.log(res.data);
-        setSearch(res.data);
+        // setSearch([]);
+        res.data.forEach(element => {
+          if(element.userId !== currentUser._id){
+            search.push(element);
+          }
+        });
+       
+        
+        setSearch([...search]);
+        console.log(search);
+        console.log(typeof(search));
       });
-      // console.log(payload);
       
     }
+    
+    function changeHandler (){
+      getVector();
+      setModalKey(modalKey+1);
+      console.log(modalKey);
+    }
+
    
-  return (
-  
+  return ( 
+    
             <div className="card my-3 shadow-sm">
               <div className="row-2 ms-auto mt-3">
                 
-                <button type="button " className="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#searchModal" onClick={() => {getVector()}}><SearchOutlinedIcon/></button>
+                <button type="button " className="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#searchModal" onClick={() => {changeHandler()}}><SearchOutlinedIcon/></button>
               
                 <MoreVertIcon />
-                <Search post={search}/>
+                  
+                <Search post={search} newId = {modalKey}/>
+                {/* <div>
+                  <div className="modal fade" id={modalKey} data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg modal-dialog-scrollable" >
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="staticBackdropLabel">Ricerca effettuata...</h5>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            
+                            {Array.isArray(search)? search.map( (p) => { return <SearchPost key={p._id} post ={p} />}) : ""}
+                        </div>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-secondary" onClick={closeModal} data-bs-dismiss="modal">Close</button>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div> */}
+
               </div>
              
               <img src={PF+"/postimg/"+post.img} className="card-img-top p-2" onClick={likeHandler} alt="..."/> 
@@ -110,7 +151,7 @@ export default function Post({post}) {
               <div className="card-body " >
                 <div className="d-flex justify-content-between ">
                 <span className="likeCounter fw-bold"onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
-                 <InsertCommentIcon role="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" fontSize='large'/>
+                 <InsertCommentIcon role="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample`} fontSize='large'/>
                  
                 </div>
                 
@@ -130,20 +171,21 @@ export default function Post({post}) {
                   <span className='timeStamp fs-6 fw-light ms-auto'><TimeAgo date={post.createdAt}/></span>
                 </div>
                 
-                <div className="collapse" id = "commentCollapse">
-                  {/* {comment.map((c) => <Comment key={c._id} comm = {c}/>)} */}
-                </div>
+                {/* <div className="collapse" id = "commentCollapse">
+                  {comment.map((c) => <Comment key={c._id} comm = {c}/>)}
+                </div> */}
 
-                <div className="collapse" id="collapseExample">
+              
                   <div className="card card-body">
                     
-                    <textarea href={newCommentText}></textarea>
+                    <textarea name="descPost" cols="50" rows="2" style={{borderStyle: "none", width: "100%"}} maxLength="250" placeholder="Aggiungi un Commento..." id="descPost" ref={newCommentText}></textarea>
                     
-                    <button type='button' onSubmit={newComment}>Commenta</button>
                   </div>
-                </div>
+                  <button type='button' className= "btn btn-outline-primary" onClick={() => {newComment()}}>Commenta</button>
+                
 
             </div>
         </div>
+
   )
 }

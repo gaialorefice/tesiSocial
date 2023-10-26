@@ -25,7 +25,7 @@ export default function SharePost() {
     const options = {
         method: 'POST',
         body: formData,
-        mode: "no-cors",
+       
     };
 
     
@@ -37,21 +37,23 @@ export default function SharePost() {
             }
     }).then(data => {
         console.log(data);
+      
         const arrayfl = data.vector.slice(1,-1); //per rimuovere le parentesi [] ad inizio e fine prende il campo vector del file toprnato da python
         const array = arrayfl.split(', '); // per rimuovere la separazione degli elementi
         
+        console.log(array)
 
-      // var arrayDouble = array.map(function(string){
-      //   var arr = parseFloat(parseFloat(string).toFixed(2))
-      //   return arr;
-      // });
-      // console.log(arrayDouble);
+      var arrayDouble = array.map(function(string){
+        var arr = parseFloat(parseFloat(string).toFixed(2))
+        return arr;
+      });
+      console.log(arrayDouble);
         //fetch per caricare il post in db
         var dbdata = JSON.stringify({
           userId: user._id,
           desc: description.current.value,
           img:data.name, //prende il campo nome dall'oggetto tornato da python
-          vector: array,
+          vector: arrayDouble,
         });
         
         console.log(imgName);

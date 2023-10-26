@@ -12,20 +12,22 @@ import Feed from '../components/feed/Feed'
 import Leftbar from '../components/leftbar/Leftbar'
 import { AuthContext } from '../context/AuthContext'
 
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 export default function Profile() {
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
     const username = useParams().username;
-    const {user:currentUser} = useContext(AuthContext);
+    const {user:currentUser, dispatch } = useContext(AuthContext);
     
-    // const [followers, setFollowers] = useState(user.followers.length)
-    // const [followings,setFollowings] = useState(user.followings.length)
-   
+    const [followed, setFollowed] = useState(false);
 
     const [user, setUser] = useState({})
-    const [followings, setFollowings] = useState([]);
-    const [followers, setFollowers] = useState([]);
+
+    useEffect(()=>{
+        setFollowed(currentUser.followings.includes(user?.id))
+    },[currentUser,user.id])
 
     useEffect( ()=>{
       console.log("feed renderizzato");
@@ -36,23 +38,23 @@ export default function Profile() {
         setUser(res.data)
       }
 
-      const fetchFollowings = async()=>{
-        const followingList = await axios.get('http://localhost:8800/api/users/followings/'+currentUser._id);
-        setFollowings(followingList.data);
-      }
-
-      const fetchFollowers = async () =>{
-        const followerList = await axios.get('http://localhost:8800/api/users/followers/'+currentUser._id);
-        setFollowers(followerList.data);
-      }
       
       fetchUser();
-      fetchFollowings();
-      fetchFollowers();
-      console.log(currentUser);
 
   
-    },[username, currentUser._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
+    },[username, user._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
+
+
+    const followHandler = async() =>{
+        if(followed){
+            await axios.put(`http://localhost:8800/api/users/${user._id}/unfollow`, {userId:currentUser._id});
+            dispatch({type:"UNFOLLOW", payload:user._id})
+        }else{
+           await axios.put(`http://localhost:8800/api/users/${user._id}/follow`,{userId:currentUser._id})
+           dispatch({type:"FOLLOW", payload:user._id})
+        }
+        setFollowed(!followed)
+    }
 
   return (
     <>
@@ -70,30 +72,27 @@ export default function Profile() {
                     <span className='usernameText fs-5 fw-bold'>{user.username}</span>
                     <span className="profileDesc">{user.desc}</span>
                 </div> 
-                <button type="button" className="btn btn-outline-primary">Segui</button>
+                {user.username !== currentUser.username && 
+                <button type="button" onClick={followHandler} className="btn btn-outline-primary"> { followed? "Smetti di seguire" : "Segui"} { followed? <RemoveIcon/> : <AddIcon/>}</button>}
             </div>
 
         </div>
         <div className="row border-bottom shadow-sm">
             <div className="col-3 offset-md-3 ">
                 <span className="d-flex followerCounter justify-content-center">
-                    {followers.length} Followers
+                     Followers
                 </span>
             </div>
             <div className="col-3">
                 <span className="d-flex followingCounter justify-content-center">
-                    {followings.length} Following
+                    Following
                  </span>
             </div>
         </div>
         <div className="row shadow-sm  bg-light ">
             <Leftbar from="profile" user = {user}/>
             <div className="col-10 p-5 ">
-                {/* <div className="row">
-                    {Posts.map( (p) =>(<ProfilePost key={p._id} post ={p} />))}
-                    <Feed profile/>
-                   </div> */}
-                   <Feed username = {username} />
+             <Feed username = {username} />
                  
             </div>
         </div>

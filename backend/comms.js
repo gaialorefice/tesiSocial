@@ -8,25 +8,26 @@ const Comment = require("../models/Comment");
 
 
 // POST: Crea un nuovo commento in un post
-router.post('/posts/:postId/comments', async (req, res) => {
-    try {
-      const post = await Post.findById(req.params.postId);
-      if (!post) {
+// router.post('/posts/:postId/comments', async (req, res) => {
+//   const newComment = new Comment(req.body)
+//     try {
+//       const post = await Post.findById(req.params.postId);
+//       // if (!post) {
         
-        return res.status(404).json({ message: 'Post non trovato' });
-      }
+//       //   return res.status(404).json({ message: 'Post non trovato' });
+//       // }
   
-      const newComment = new Comment(req.body)
+      
   
-      const savedComment = await newComment.save();
-      await post.updateOne({$push:{comments:savedComment}})
-      await post.save();
+//       const savedComment = await newComment.save();
+//       await post.updateOne({$push:{comments:savedComment}})
+//       await post.save();
   
-      return res.status(200).json(newComment);
-    } catch (error) {
-      return res.status(500).json({ error: 'Errore nella creazione del commento' });
-    }
-  });
+//       return res.status(200).json(newComment);
+//     } catch (error) {
+//       return res.status(500).json({ error: 'Errore nella creazione del commento' });
+//     }
+//   });
   
 
 // GET: Ottieni i commenti di un post
@@ -44,25 +45,25 @@ router.post('/posts/:postId/comments', async (req, res) => {
 
 
 //GET commenti in un post
-router.get('/posts/:postId/comments', async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.userId);
-        const comments = Promise.all(
-        post.comments.map(comId =>{
-            return Comment.findById(comId)
-        })
-    )
-    let commentsList = [];
-    (await comments).map((com) =>{
-        const {_id, userId, comm} = com;
-        followersList.push({_id,userId,comm});
-    })
-    return res.status(200).json(commentsList);
+// router.get('/:postId/comments', async (req, res) => {
+//     try {
+//         const post = await Post.findById(req.params.userId);
+//         const comments = Promise.all(
+//         post.comments.map(comId =>{
+//             return Comment.findById(comId)
+//         })
+//     )
+//     let commentsList = [];
+//     (await comments).map((com) =>{
+//         const {_id, userId, comm} = com;
+//         followersList.push({_id,userId,comm});
+//     })
+//     return res.status(200).json(commentsList);
 
-    } catch (error) {
-        return res.status(500).json(error);
-    }
-  });
+//     } catch (error) {
+//         return res.status(500).json(error);
+//     }
+//   });
 
 // PUT: Aggiorna un commento
 router.put('/posts/:postId/comments/:commentId', requireAuth, requireCommentOwnership, async (req, res) => {

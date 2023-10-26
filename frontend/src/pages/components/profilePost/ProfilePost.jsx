@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Users } from '../../../PostProva';
+
 import './profilepost.css'
 
 import axios from 'axios';
@@ -14,8 +13,8 @@ export default function ProfilePost({post}) {
   const [isLiked,setIsLiked]=useState(false)//hooks?
   const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
 
-  const {user} = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
+  const {user:currentUser} = useContext(AuthContext);
+  
 
 
   // useEffect( ()=>{
@@ -32,9 +31,14 @@ export default function ProfilePost({post}) {
 
 
   const likeHandler =()=>{ //arrow function
-      setLike(isLiked? like-1: like+1)
-      setIsLiked(!isLiked) 
-  }
+    try {
+      axios.put("http://localhost:8800/api/posts/"+post._id+"/like",{userId:currentUser._id});
+    } catch (error) {
+      
+    }
+    setLike(isLiked? like-1: like+1)
+    setIsLiked(!isLiked) 
+}
   return (
     
     
