@@ -21,6 +21,8 @@ export default function Profile() {
     const username = useParams().username;
     const {user:currentUser, dispatch } = useContext(AuthContext);
     
+    const [followings,setFollowings]=useState(user.followings.length)//hook
+
     const [followed, setFollowed] = useState(false);
 
     const [user, setUser] = useState({})
@@ -45,6 +47,14 @@ export default function Profile() {
     },[username, user._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
 
 
+    useEffect( () => {
+
+        const followingCounter = async() =>{
+            const res = axios.get("http://localhost:8800/api/users/followings"+user._id)
+        }
+    
+    })
+   
     const followHandler = async() =>{
         if(followed){
             await axios.put(`http://localhost:8800/api/users/${user._id}/unfollow`, {userId:currentUser._id});

@@ -64,17 +64,17 @@ router.get("/",async(req,res)=>{
 
 })
 
-//get followings
+// get followings
 
-// router.get("/followings/:userId", async(req,res)=>{
+router.get("/followings/:userId", async(req,res)=>{
    
-//         const user = await User.findById(req.params.userId);
-//         const followings = await Promise.all(
-//             user.followings.map(followingsId => {
-//             return User.findById(followingsId)
-//         }));
-//         res.status(200).json(followings);
-// })
+        const user = await User.findById(req.params.userId);
+        const followings = await Promise.all(
+            user.followings.map(followingsId => {
+            User.findById(followingsId)
+        }));
+        res.status(200).json(followings);
+})
 
 //get followers
 

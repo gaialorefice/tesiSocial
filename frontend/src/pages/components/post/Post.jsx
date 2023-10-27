@@ -150,15 +150,15 @@ export default function Post({post}) {
 
               <div className="card-body " >
                 <div className="d-flex justify-content-between ">
-                <span className="likeCounter fw-bold"onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
+                <span className="likeCounter fw-bold mx-2" onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
                  <InsertCommentIcon role="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample`} fontSize='large'/>
                  
                 </div>
                 
 
-                <div className="d-flex align-items-center postInfo">
+                <div className="d-flex align-items-center mt-2 postInfo">
                   <Link to={`profile/${user.username}`}>
-                    <img src={user.profiePicture? PF+"pfp/"+user.profiePicture : PF+"pfp/pfp.png"} className="card-img-top profilePicturePost rounded-circle" onClick={likeHandler} alt="..."/>
+                    <img src={user.profiePicture? PF+"pfp/"+user.profiePicture : PF+"pfp/pfp.png"} className="card-img-top profilePicturePost rounded-circle"  alt="..."/>
                   </Link>
                   <h5 className="card-title ms-2">{user.username}</h5>
                 </div>
@@ -181,7 +181,7 @@ export default function Post({post}) {
                     <textarea name="descPost" cols="50" rows="2" style={{borderStyle: "none", width: "100%"}} maxLength="250" placeholder="Aggiungi un Commento..." id="descPost" ref={newCommentText}></textarea>
                     
                   </div>
-                  <button type='button' className= "btn btn-outline-primary" onClick={() => {newComment()}}>Commenta</button>
+                  <button type='button' className= "btn btn-outline-primary mt-2" onClick={() => {newComment()}}>Commenta</button>
                 
 
             </div>
