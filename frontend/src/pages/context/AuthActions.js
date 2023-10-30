@@ -8,9 +8,13 @@ export const LoginSuccess = (user) =>({
 });
 
 export const LoginError = (error) =>({
-    type:"LOGIN_ERROR",
+    type:"LOGIN_FAILURE",
     payload: error
 });
+
+export const Logout = () =>({
+    type: "LOGOUT"
+})
 
 export const Follow = (userId) =>({
     type: "FOLLOW",

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import SharePost from '../share/SharePost';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
+import { logoutCall } from '../../../apiCalls';
 
 
 
@@ -17,6 +18,10 @@ export default function Leftbar({from}) {
   const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
   const {user, isFetching, error, dispatch} = useContext(AuthContext);
 
+  const logoutHandler = (e) =>{
+    logoutCall(dispatch);
+    window.location.href = "/login"
+  }
     return(
       <div id='leftbar' className='col-2 pt-5 border-end bg-white'>
         <div className="row offset-md-2">
@@ -35,7 +40,7 @@ export default function Leftbar({from}) {
             </Link>
           }
           <li className="list-group-item" data-bs-toggle="modal" data-bs-target="#exampleModal"><AddCircleOutlineOutlinedIcon fontSize='large'/>Nuovo Post</li>
-          <li className="list-group-item"><ExitToAppOutlinedIcon fontSize='large'/>Esci</li>
+          <li onClick={logoutHandler} className="list-group-item"><ExitToAppOutlinedIcon  fontSize='large'/>Esci</li>
       
        </ul>
         </div>

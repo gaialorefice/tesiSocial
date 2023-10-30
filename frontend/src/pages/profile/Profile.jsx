@@ -17,16 +17,16 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 
 export default function Profile() {
+    const [user, setUser] = useState({})
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
     const username = useParams().username;
     const {user:currentUser, dispatch } = useContext(AuthContext);
     
-    const [followings,setFollowings]=useState(user.followings.length)//hook
+    
 
     const [followed, setFollowed] = useState(false);
 
-    const [user, setUser] = useState({})
-
+   
     useEffect(()=>{
         setFollowed(currentUser.followings.includes(user?.id))
     },[currentUser,user.id])
