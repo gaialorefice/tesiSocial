@@ -14,9 +14,10 @@ export default function SearchPost({post}){
     const {user:currentUser} = useContext(AuthContext);
 
     useEffect(()=>{
-        console.log("feed renderizzato");
+        // console.log("feed renderizzato");
         const fetchUser = async () =>{
-          const res = await axios.get(`/users?userId=${post.userId}`);
+          // console.log(post);
+          const res = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`);
           setUser(res.data)
         };
         
