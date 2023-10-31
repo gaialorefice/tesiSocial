@@ -10,7 +10,7 @@ const INITIAL_STATE ={ //rappresenta lo stao iniziale
 
 export const AuthContext = createContext(INITIAL_STATE);
 
-export const AuthContextProvider  = ({children}) =>{ //cildren rappresenta l'applicazione, si stanno condividendo tutti quei valori con l'applicazione
+export const AuthContextProvider  = ({children}) =>{ //children rappresenta l'applicazione, si stanno condividendo tutti quei valori con l'applicazione
     const [state, dispatch] = useReducer(AuthReducer,INITIAL_STATE);
 
     useEffect(()=>{
@@ -24,14 +24,3 @@ export const AuthContextProvider  = ({children}) =>{ //cildren rappresenta l'app
         </AuthContext.Provider>
     )
 }
-
-
-// _id:"65325b8ce45f8803bc227ff4",
-//             username:"percythearancinocat",
-//             name:"percy",
-//             surname:"percy",
-//             email:"percy@percy.com",
-//             profilePicture:"",
-//             isAdmin:false,
-//             followings:[],
-//             followers:[],

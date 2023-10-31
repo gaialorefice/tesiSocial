@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import './profile.css'
 
-
-
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router'
@@ -23,13 +21,13 @@ export default function Profile() {
     const {user:currentUser, dispatch } = useContext(AuthContext);
     
     
-
-    const [followed, setFollowed] = useState(false);
+    const [followed, setFollowed] = useState(currentUser.followings.includes(user?._id));
+    
 
    
-    useEffect(()=>{
-        setFollowed(currentUser.followings.includes(user?.id))
-    },[currentUser,user.id])
+    // useEffect(()=>{
+    //     setFollowed(currentUser.followings.includes(user?.id))
+    // },[currentUser,user.id])
 
     useEffect( ()=>{
       console.log("feed renderizzato");
@@ -39,21 +37,23 @@ export default function Profile() {
         const res = await axios.get(`http://localhost:8800/api/users?username=${username}`);
         setUser(res.data)
       }
-
-      
+    //   console.log(user._id);
+    //   console.log(currentUser);
+      console.log(followed);
       fetchUser();
 
   
     },[username, user._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
 
-
-    useEffect( () => {
-
-        const followingCounter = async() =>{
-            const res = axios.get("http://localhost:8800/api/users/followings"+user._id)
-        }
     
-    })
+
+    // useEffect( () => {
+
+    //     const followingCounter = async() =>{
+    //         const res = axios.get("http://localhost:8800/api/users/followings"+user._id)
+    //     }
+    
+    // })
    
     const followHandler = async() =>{
         if(followed){
@@ -62,6 +62,7 @@ export default function Profile() {
         }else{
            await axios.put(`http://localhost:8800/api/users/${user._id}/follow`,{userId:currentUser._id})
            dispatch({type:"FOLLOW", payload:user._id})
+           
         }
         setFollowed(!followed)
     }
@@ -82,20 +83,19 @@ export default function Profile() {
                     <span className='usernameText fs-5 fw-bold'>{user.username}</span>
                     <span className="profileDesc">{user.desc}</span>
                 </div> 
-                {user.username !== currentUser.username && 
-                <button type="button" onClick={followHandler} className="btn btn-outline-primary"> { followed? "Smetti di seguire" : "Segui"} { followed? <RemoveIcon/> : <AddIcon/>}</button>}
+                {user.username !== currentUser.username && (<button type="button" onClick={followHandler} className="btn btn-outline-primary"> { followed? "Smetti di seguire" : "Segui"} { followed? <RemoveIcon/> : <AddIcon/>}</button>)}
             </div>
 
         </div>
         <div className="row border-bottom shadow-sm">
             <div className="col-3 offset-md-3 ">
                 <span className="d-flex followerCounter justify-content-center">
-                     Followers
+                 Followers
                 </span>
             </div>
             <div className="col-3">
                 <span className="d-flex followingCounter justify-content-center">
-                    Following
+                Following
                  </span>
             </div>
         </div>

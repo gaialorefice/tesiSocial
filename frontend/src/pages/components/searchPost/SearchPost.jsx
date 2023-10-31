@@ -27,30 +27,7 @@ export default function SearchPost({post}){
 
 
     return(
-        // <div className="card searchCard my-3 shadow-sm">
-        //     <div className="row-2 ms-auto mt-3">
-            
-        //     </div>
-        
-        //     <img src={PF+"/postimg/"+post.img} className="card-img-top p-2"  alt="..."/> 
-
-        //     <div className="card-body">
-        
-        //         <span className="likeCounter fw-bold"> <FavoriteBorderIcon fontSize='large'/>Mi piace</span>
-                
-
-        //         <div className="d-flex align-items-center postInfo">
-        //             <Link to={`profile/${user.username}`}>
-        //             <img src={user.profiePicture? PF+"pfp/"+user.profiePicture : PF+"pfp/pfp.png"} className="card-img-top profilePicturePost rounded-circle"  alt="..."/>
-        //             </Link>
-        //             <h5 className="card-title ms-2">{user.username}</h5>
-        //         </div>
-        //         <div className="d-flex">
-        //             <span className='timeStamp fs-6 fw-light ms-auto'></span>
-        //         </div>
-            
-        //     </div>
-        // </div>
+       
         <div className="row">
             <div className="card searchCard col-4 align-items-center mx-2 mb-5" style={{"width": 450}}>
             <div className="d-flex align-items-center postInfo">
@@ -61,9 +38,9 @@ export default function SearchPost({post}){
                 </div>
             <img src={PF+"postimg/"+post.img} className='postImage img-fluid p-2 rounded-2'  alt=''/>
             <div className="card-body ">
-                <div className="row justify-content-start">
+                {/* <div className="row justify-content-start">
                 <span className="likeCounter fw-bold"> <FavoriteBorderIcon fontSize='large'/>Mi piace</span>
-                </div>
+                </div> */}
                 
                 
             </div>

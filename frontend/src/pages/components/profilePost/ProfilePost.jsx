@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-
+import Comment from '../comment/Comment';
+import TimeAgo from 'react-timeago';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import './profilepost.css'
 
 import axios from 'axios';
@@ -12,24 +13,14 @@ export default function ProfilePost({post}) {
   const [like,setLike]=useState(post.likes.length)//hook
     const [isLiked,setIsLiked]=useState(false)//hook
   const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+  const [openComments, setOpenComments] = useState(false)
+ 
 
   const {user:currentUser} = useContext(AuthContext);
   
   useEffect(()=>{
     setIsLiked(post.likes.includes(currentUser._id))
   },[currentUser._id, post.likes]);
-
-  // useEffect( ()=>{
-  //   console.log("feed renderizzato");
-  
-  //   const fetchPosts = async () =>{
-  //     const res = await axios.get("posts/profile/"+ user.username);
-  //     setPosts(res.data)
-  //   }
-    
-  //   fetchPosts();
-
-  // },[]) //mettendo l'array vuoto renderizza una sola volta?, è una dipendenza
 
 
   const likeHandler =()=>{ //arrow function
@@ -41,6 +32,12 @@ export default function ProfilePost({post}) {
     setLike(isLiked? like-1: like+1)
     setIsLiked(!isLiked) 
 }
+
+
+const showComments = () =>{
+  setOpenComments(!openComments);
+}
+
   return (
     
     
@@ -50,10 +47,19 @@ export default function ProfilePost({post}) {
           <img src={PF+"postimg/"+post.img} className='postImage p-2 rounded-2' onClick={likeHandler} alt=''/>
           <div className="card-body justify-content-start">
             <div className=" ">
-              <span className="likeCounter fw-bold" onClick={likeHandler}> <FavoriteBorderIcon fontSize='large'/>{like} Mi piace</span>
+            <span className="likeCounter fw-bold me-2" onClick={likeHandler}> {isLiked? <FavoriteIcon fontSize='large'/>:<FavoriteBorderIcon fontSize='large'/>} {like} Mi piace</span>
                 <span className="card-text">{post?.desc}</span>
               
             </div>
+            <div className="d-flex justify-content-between" style={{"width": 425}}>
+                  
+                  <span className="postComment fs-6 text-muted" onClick={showComments}> Commenti <Comment postId ={post._id} comm ={openComments}/> </span> 
+                  
+                  <span className='timeStamp fs-6 fw-light ms-auto'><TimeAgo date={post.createdAt}/></span>
+                </div>
+
+                  
+                 
             {/* <span className="postComment fs-6 text-muted">{post?.com} Commenti</span> */}
             
           </div>

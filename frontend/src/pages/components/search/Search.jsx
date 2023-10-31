@@ -22,7 +22,7 @@ export default function Search({post, bool}) {
     axios.post("posts/search", payload).then((res) =>{
       setSearch([]);
       res.data.forEach(element => {
-        if(element.userId !== currentUser._id){
+        if(element.userId !== currentUser._id && element.userId !== post.userId){
           search.push(element);
         }
       });
