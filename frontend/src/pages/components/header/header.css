@@ -20,3 +20,17 @@
     height: 5vh;
     width: 45vh;
 }
+
+#search-results{
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    z-index: 9999;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.result:hover{
+    background-color: rgb(212, 222, 255);
+    cursor: pointer;
+}

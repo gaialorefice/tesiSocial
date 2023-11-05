@@ -67,6 +67,7 @@ export default function Post({post}) {
 
       axios.post("http://localhost:8800/api/posts/"+post._id+"/comments", payload);
       console.log(payload);
+      
       console.log("commento aggiunto");
     }
 
@@ -74,6 +75,7 @@ export default function Post({post}) {
       setOpenNewComments(!openNewComments);
     }
     const showComments = () =>{
+  
       setOpenComments(!openComments);
     }
        
@@ -121,7 +123,7 @@ export default function Post({post}) {
                     <textarea name="descPost" cols="50" rows="2" style={{borderStyle: "none", width: "100%"}} maxLength="250" placeholder="Aggiungi un Commento..." id="descPost" ref={newCommentText}></textarea>
                     
                   </div>)}
-                  {openNewComments && (<button type='button' className= "btn btn-outline-primary mt-2" onClick={() => {newComment()}}>Commenta</button>)}
+                  {openNewComments && (<button type='button' className= "btn btn-outline-primary mt-2" onClick={newComment}>Commenta</button>)}
                 
 
             </div>

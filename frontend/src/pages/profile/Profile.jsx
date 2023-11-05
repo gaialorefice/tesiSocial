@@ -22,12 +22,9 @@ export default function Profile() {
     
     
     const [followed, setFollowed] = useState(currentUser.followings.includes(user?._id));
-    
-
+    const [followers, setFollowers] = useState(0);
+    const [following, setFollowing] = useState(0);
    
-    // useEffect(()=>{
-    //     setFollowed(currentUser.followings.includes(user?.id))
-    // },[currentUser,user.id])
 
     useEffect( ()=>{
       console.log("feed renderizzato");
@@ -37,9 +34,14 @@ export default function Profile() {
         const res = await axios.get(`http://localhost:8800/api/users?username=${username}`);
         setUser(res.data)
       }
-    //   console.log(user._id);
-    //   console.log(currentUser);
-      console.log(followed);
+
+      setFollowed(currentUser.followings.includes(user?._id))
+
+      if (!(Object.keys(user).length === 0)){
+        setFollowers(user.followers.length)
+        setFollowing(user.followings.length)
+      }
+
       fetchUser();
 
   
@@ -90,12 +92,12 @@ export default function Profile() {
         <div className="row border-bottom shadow-sm">
             <div className="col-3 offset-md-3 ">
                 <span className="d-flex followerCounter justify-content-center">
-                 Followers
+                 Followers {followers}
                 </span>
             </div>
             <div className="col-3">
                 <span className="d-flex followingCounter justify-content-center">
-                Following
+                Following {following}
                  </span>
             </div>
         </div>

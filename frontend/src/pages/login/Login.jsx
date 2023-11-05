@@ -8,7 +8,7 @@ import { AuthContext } from '../context/AuthContext'
 export default function Login() {
 
    const email = useRef();
-   const password =useRef(); // hook che permette di fare riferimento ad un valare che non necessario al rendering
+   const password = useRef(); // hook che permette di fare riferimento ad un valare che non necessario al rendering
 
    const {user, isFetching, error, dispatch} = useContext(AuthContext);
 
@@ -17,8 +17,7 @@ export default function Login() {
     loginCall({email:email.current.value,password:password.current.value}, dispatch);
   };
 
-  // console.log(isFetching);
-  // console.log(user);
+ 
   return (
     <div className='bg '>
         <div className='row vh-100 justify-content-center align-items-center '>
@@ -39,7 +38,7 @@ export default function Login() {
                   </div>
                   <div className="mb-3">
                       <input type="password" className="form-control border-primary" placeholder="Password" minLength={8} required ref={password}/>
-                      <span className="forgottenPAssword">Password dimenticata?</span>
+                    
                   </div>
                   
                     <button type="submit" className=" btn btn-outline-primary " disabled={isFetching}>{isFetching? <div className="spinner-border ms-auto" role="status" aria-hidden="true"></div>  : "Accedi"}</button>

@@ -51,15 +51,26 @@ router.delete("/:id", async(req,res)=>{
 
 // get a user
 router.get("/",async(req,res)=>{
-    const userId = req.query.userId;
-    const username = req.query.username;
-    try {
-        const user = userId? await User.findById(userId) : await User.findOne({username: username});
+    if(Object.keys(req.query).length === 0){
+
+        const users = await User.find()
+        var userList = [];
+    
+        users.forEach(function(user) {
+            var{password, ...other} = user._doc;
+            userList.push(other);
+        });
+    
+        res.send(userList);  
+
+    }else{
+        const userId = req.query.userId;
+        const username = req.query.username;
         
+        const user = userId? await User.findById(userId) : await User.findOne({username: username});
+
         const{password, ...other} = user._doc;
         res.status(200).json(other);
-    } catch (error) {
-        return res.status(500).json(error);
     }
 
 })
@@ -145,4 +156,11 @@ router.put("/:id/unfollow", async (req, res)=>{
         res.status(403).json("Non puoi seguirti da solo")
     }
 })
+
+// router.get("/", async(req,res) =>{ 
+//     const username = req.query.username;
+//     const user = await User.find({$text: {$search: username}})
+
+//     res.status(200).json(search(user))
+// })
 module.exports = router;
