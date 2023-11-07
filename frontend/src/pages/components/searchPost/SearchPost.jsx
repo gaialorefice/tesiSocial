@@ -32,7 +32,7 @@ export default function SearchPost({post}){
             <div className="card searchCard col-4 align-items-center mx-2 mb-5" style={{"width": 450}}>
             <div className="d-flex align-items-center postInfo">
                   <Link to={`profile/${user.username}`}>
-                    <img src={user.profiePicture? PF+"pfp/"+user.profiePicture : PF+"pfp/pfp.png"} data-bs-dismiss="modal" className="card-img-top profilePicturePost rounded-circle"  alt="..."/>
+                    <img src={user.profiePicture? PF+"pfp/"+user.profiePicture : PF+"pfp/pfp.png"} data-bs-dismiss="modal" className="card-img-top profilePicturePost pt-2 rounded-circle"  alt="..."/>
                   </Link>
                   <h5 className="card-title ms-2">{user.username}</h5>
                 </div>

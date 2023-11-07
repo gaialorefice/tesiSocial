@@ -4,7 +4,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 export default function Header() {
 
     const [data,setData] = useState([]);
@@ -42,9 +42,11 @@ export default function Header() {
   return (
 
     <div className=' row headerBox  border-bottom shadow-sm align-item-center ' >
-        <div className=' col-2 mt-2'> 
+        <div className=' col-2 mt-2' > 
             <div className="row offset-md-2">
-                <img src={PF+'postcard.png'} className='img-fluid headerLogo' alt=''/>
+                <Link to="/">
+                    <img src={PF+'postcard.png'} className='img-fluid headerLogo' alt=''/>
+                </Link>
             </div>
         </div>
         <div className="col-10">
@@ -71,8 +73,8 @@ export default function Header() {
                     </div>  
                 </div>
                 <div className='col-4'> 
-                    <NotificationsOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/>
-                    <MessageOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/> 
+                    {/* <NotificationsOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/>
+                    <MessageOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/>  */}
                 </div>
             </div>
         </div>

@@ -69,6 +69,7 @@ export default function Post({post}) {
       console.log(payload);
       
       console.log("commento aggiunto");
+      window.location.reload();
     }
 
     const showNewCommentField = () =>{
@@ -78,14 +79,15 @@ export default function Post({post}) {
   
       setOpenComments(!openComments);
     }
-       
+
+  
   return ( 
     
             <div className="card my-3 shadow-sm">
               <div className="row-2 ms-auto mt-3">
                 
                 <button type="button" className="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target={"#modal-"+post._id}><SearchOutlinedIcon/></button>
-                <MoreVertIcon />
+                {currentUser._id === post.userId? <MoreVertIcon />  : " " }
                 <Search post = {post}/>
 
 
