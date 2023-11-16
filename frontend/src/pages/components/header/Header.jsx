@@ -69,7 +69,7 @@ export default function Header() {
                         
                         {/* <SearchBar value={search}/> */}
 
-                        <button className="btn btn-outline-secondary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
+                        <button className="btn btn-outline-primary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
                     </div>  
                 </div>
                 <div className='col-4'> 

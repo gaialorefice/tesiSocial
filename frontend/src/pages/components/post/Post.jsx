@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import Search from '../search/Search';
 import Comment from '../comment/Comment';
+import Delete from '../delete/Delete';
 
 import TimeAgo from "react-timeago";
 import { Link } from 'react-router-dom';
@@ -87,10 +88,10 @@ export default function Post({post}) {
               <div className="row-2 ms-auto mt-3">
                 
                 <button type="button" className="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target={"#modal-"+post._id}><SearchOutlinedIcon/></button>
-                {currentUser._id === post.userId? <MoreVertIcon />  : " " }
+                {currentUser._id === post.userId? <MoreVertIcon data-bs-toggle="modal" data-bs-target={"#deleteModal-"+post._id}/> : <MoreVertIcon sx={{ color: 'white' }}/>  }
                 <Search post = {post}/>
-
-
+                <Delete post = {post}/>
+                {/* <div  data-bs-toggle="modal" data-bs-target="deleteModal"> */}
 
               </div>
              

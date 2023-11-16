@@ -44,11 +44,13 @@ router.put("/:id",async(req,res)=>{
 router.delete("/:id",async(req,res)=>{
     try{
         const post = await Post.findById(req.params.id);
+        console.log(req.params.id);
+        console.log(req.body.userId);
         if(post.userId === req.body.userId){
             await post.deleteOne();
             res.status(200).json("Post eliminato");
         }else{
-            res.status(403).json("Puoi eliminare solo i tuoi post");
+            res.status(403).json(req.body.userId);
         }
     }catch(error){
         res.status(500).json(error)
