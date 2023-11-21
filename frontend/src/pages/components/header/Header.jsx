@@ -21,7 +21,7 @@ export default function Header() {
     const searchHandler = (value) =>{
         var results = []
         data.forEach((e)=>{
-            console.log();
+          
             if(e.username.includes(value)){
                 results.push(e)
             }
@@ -67,14 +67,12 @@ export default function Header() {
                             })}
                         </div>
                         
-                        {/* <SearchBar value={search}/> */}
 
                         <button className="btn btn-outline-primary" type="button" id="button-addon2"><SearchOutlinedIcon/></button>
                     </div>  
                 </div>
                 <div className='col-4'> 
-                    {/* <NotificationsOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/>
-                    <MessageOutlinedIcon fontSize='large'sx={{color:'#478ba2'}}/>  */}
+                    
                 </div>
             </div>
         </div>

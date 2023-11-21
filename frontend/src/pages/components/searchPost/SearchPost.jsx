@@ -1,9 +1,8 @@
  import React, { useEffect } from "react";
 import { useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+
 import { Link } from "react-router-dom";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import "./searchpost.css"
 import axios from "axios";
 
@@ -11,12 +10,12 @@ export default function SearchPost({post}){
    
     const [user, setUser] = useState({})
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
-    const {user:currentUser} = useContext(AuthContext);
+
 
     useEffect(()=>{
-        // console.log("feed renderizzato");
+       
         const fetchUser = async () =>{
-          // console.log(post);
+         
           const res = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`);
           setUser(res.data)
         };

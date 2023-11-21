@@ -4,10 +4,6 @@ import axios from "axios";
  
 export default function Comment({postId, comm}){
 
-    const [isLiked,setIsLiked]=useState(false)//hook
-    const [user, setUser] = useState({})
-    
-
     
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
     const {user:currentUser} = useContext(AuthContext);
@@ -28,16 +24,6 @@ export default function Comment({postId, comm}){
     },[])
 
 
-    // useEffect( ()=>{
-    //     console.log("feed renderizzato");
-    //     const fetchUser = async () =>{
-    //       const res = await axios.get(`http://localhost:8800/api/users?userId=${post.userId}`);
-    //       setUser(res.data)
-    //     };
-        
-    //     fetchUser();
-    
-    //   },[post.userId])
     return(
         <div>
             <div className="boxComment">

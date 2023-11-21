@@ -22,28 +22,22 @@ def upload_image():
   if not file.filename.endswith(('.jpg','.png','.jpeg')):
      return jsonify({'error': 'Il tipo non è supportato'}), 400
   
-  upload_folder = '../frontend/public/assets/postimg' #non inserisce più in database ma la mette nella cartella giusta
-#  './uploads'
+  upload_folder = '../frontend/public/assets/postimg' # Inserimento in cartella 
 
-  new_name = str(random.randrange(0,10000,1)) + ".png" #crei un nome dato da numeri random
-  file.save(os.path.join(upload_folder,new_name))#salva l'immagine
+
+  new_name = str(random.randrange(0,10000,1)) + ".png" # Creazione  di un nome dato da numeri random
+  file.save(os.path.join(upload_folder,new_name))# Salvataggio dell'immagine
 
 
   ### machine learnig
-  # run(f"./uploads/{file.filename}")
-  # datas = json.dumps(vector(f"./uploads/{file.filename}"))
-  datas = json.dumps(vector(f"../frontend/public/assets/postimg/{new_name}")) #vettorializza
- 
-  print(datas)
-  print(len(datas)) # lungo perché conta adesso tutti i caratteri e non più il vettore
-  print(type(datas))
-  
-  r = {} #crea un dizionario / oggetto
+  datas = json.dumps(vector(f"../frontend/public/assets/postimg/{new_name}")) #Vettorizzazione dell'immagine
+
+  r = {} #Creazione di un dizionario / oggetto
   r['vector'] = datas #da due campi
   r['name'] = new_name
-  response = jsonify(r) #converte in stringa json
-  print(type(response))
-  # response.headers.add('Access-Control-Allow-Origin','http://localhost:3000/') #per ottenere i permessi cors
+  response = jsonify(r) #Conversione in stringa json
+ 
+
   response.headers.add('Access-Control-Allow-Origin','*')
 
   return response, 200

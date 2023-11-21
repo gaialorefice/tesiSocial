@@ -9,7 +9,6 @@ import ProfilePost from '../profilePost/ProfilePost';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
-// import { Posts } from '../../../PostProva'
 
 export default function Feed({username}) {
 
@@ -29,7 +28,7 @@ export default function Feed({username}) {
     
     fetchPosts();
 
-  },[user]) //mettendo l'array vuoto renderizza una sola volta?, è una dipendenza
+  },[user]) 
 
   const HomeFeed = () =>{
 
@@ -68,22 +67,7 @@ export default function Feed({username}) {
   }
 
   return (
-    // <div className="col-10 bg-light">
-      
-    //   <div className='row'>
-      
-    //     <div className="col-6 offset-md-2 feedbox ">
-             
-    //          <SharePost/>
-    //           {posts.map( (p) =>(<Post key={p._id} post ={p} />))}
-             
-             
-    //     </div>
-    //     <div className="col-auto">
-    //     </div>
-    //   </div>
-      
-    // </div>
+  
     <>
       {username ? <ProfileFeed/> : <HomeFeed/>}
     </>

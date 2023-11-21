@@ -10,8 +10,8 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 export default function ProfilePost({post}) {
     
-  const [like,setLike]=useState(post.likes.length)//hook
-    const [isLiked,setIsLiked]=useState(false)//hook
+  const [like,setLike]=useState(post.likes.length)
+    const [isLiked,setIsLiked]=useState(false)
   const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
   const [openComments, setOpenComments] = useState(false)
  
@@ -23,7 +23,7 @@ export default function ProfilePost({post}) {
   },[currentUser._id, post.likes]);
 
 
-  const likeHandler =()=>{ //arrow function
+  const likeHandler =()=>{ 
     try {
       axios.put("http://localhost:8800/api/posts/"+post._id+"/like",{userId:currentUser._id});
     } catch (error) {
@@ -59,8 +59,6 @@ const showComments = () =>{
                 </div>
 
                   
-                 
-            {/* <span className="postComment fs-6 text-muted">{post?.com} Commenti</span> */}
             
           </div>
         </div>

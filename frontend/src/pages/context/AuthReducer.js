@@ -1,6 +1,3 @@
-//reducer inidca quali proprietà verranno aggiornate allo stato iniziale, dopo l'effettuazione della prima azione(login) viene creato un nuovo stato con isfetching true, 
-//dopodiché ci sono più possibilità, la prima è la creazione di uno stato di successo e viene aggiornato user, niente fetching
-//seconda possibilità: errore user null, fetch false , error true
 
 const AuthReducer = (state,action) =>{
     switch(action.type){
@@ -23,7 +20,7 @@ const AuthReducer = (state,action) =>{
 
         case "LOGIN_SUCCESS":
             return{
-                user: action.payload, //passo i dati utente
+                user: action.payload, //Passaggio dei dati dell'utente
                 isFetching: false,
                 error:false,
             };
@@ -36,7 +33,7 @@ const AuthReducer = (state,action) =>{
             };
          case "FOLLOW":
             return{
-                ...state, //usa l'ultimo stato
+                ...state, //Utilizza l'ultimo stato
                 user: {
                     ...state.user, //PRENDE I DATI DELLO STATO
                     followings: [...state.user.followings,action.payload],
@@ -44,10 +41,10 @@ const AuthReducer = (state,action) =>{
             };
         case "UNFOLLOW":
              return{
-                ...state, //usa l'ultimo stato
+                ...state, 
                 user: {
                     ...state.user,
-                     followings: state.user.followings.filter((followings) => followings !== action.payload), //controlla tutti gli elementi allinterno adell'array per farli rimanere
+                     followings: state.user.followings.filter((followings) => followings !== action.payload), //controlla tutti gli elementi all'interno dell'array 
                 },
             };
     }

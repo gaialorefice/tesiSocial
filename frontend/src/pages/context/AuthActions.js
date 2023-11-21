@@ -4,7 +4,7 @@ export const LoginStart = (userCredentials) =>({
 
 export const LoginSuccess = (user) =>({
     type:"LOGIN_SUCCESS",
-    payload: user, //va al reducer
+    payload: user, 
 });
 
 export const LoginError = (error) =>({

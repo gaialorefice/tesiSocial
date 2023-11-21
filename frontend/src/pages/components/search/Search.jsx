@@ -13,9 +13,6 @@ export default function Search({post, bool}) {
 
   const [search,setSearch] = useState([])
 
-  // useEffect(()=>{
-  //   getVector()
-  // },[]);
 
   function getVector(){
     const payload = {post:post}
@@ -32,7 +29,7 @@ export default function Search({post, bool}) {
   }
 
   
-  //modale per vedere tutti i risultati
+
 
   return (
     <div>

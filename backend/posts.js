@@ -16,14 +16,6 @@ router.post("/", async(req,res)=>{
     }
 });
 
-// router.get("/", async(req,res)=>{
-//     try {
-//         const dati = req.data;
-//         console.log('dati ricevuti', dati)
-//     } catch (error) {
-//         res.status(500).json(error)
-//     }
-// });
 
 //aggiornare un post
 router.put("/:id",async(req,res)=>{
@@ -44,8 +36,6 @@ router.put("/:id",async(req,res)=>{
 router.delete("/:id",async(req,res)=>{
     try{
         const post = await Post.findById(req.params.id);
-        console.log(req.params.id);
-        console.log(req.body.userId);
         if(post.userId === req.body.userId){
             await post.deleteOne();
             res.status(200).json("Post eliminato");
@@ -138,7 +128,6 @@ router.get("/profile/:username", async(req,res)=>{
 });
 
 
-//prova funzionamento funzione nuovo post
 
 // POST: Crea un nuovo commento in un post
 router.post('/:postId/comments', async (req, res) => {

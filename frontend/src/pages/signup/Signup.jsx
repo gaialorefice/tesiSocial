@@ -10,7 +10,7 @@ export default function Signup() {
 
         e.preventDefault();
         
-        console.log(e.target[1].value);
+    
 
         if(e.target[4].value !== e.target[5].value){
             setPasswordUncorrect(true)
@@ -24,7 +24,7 @@ export default function Signup() {
                 email: e.target[3].value,
                 password: e.target[4].value,    
             })
-            console.log(data);
+          
             const option = {
                 method: 'POST',
                 credentials: 'include',
@@ -35,7 +35,7 @@ export default function Signup() {
                 body: data,
     
             };
-            console.log(option);
+      
             fetch('http://localhost:8800/api/auth/register', option)
             .then(res=> res.json())
             .then(data =>{

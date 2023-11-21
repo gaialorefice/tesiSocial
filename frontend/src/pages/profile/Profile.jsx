@@ -27,10 +27,10 @@ export default function Profile() {
    
 
     useEffect( ()=>{
-      console.log("feed renderizzato");
+    
 
       const fetchUser = async () =>{
-        console.log(username);
+   
         const res = await axios.get(`http://localhost:8800/api/users?username=${username}`);
         setUser(res.data)
       }
@@ -45,17 +45,9 @@ export default function Profile() {
       fetchUser();
 
   
-    },[username, user._id]) // è una dipendenza, quando cambia l'd deve renderizzare nuiovamente
+    },[username, user._id]) 
 
     
-
-    // useEffect( () => {
-
-    //     const followingCounter = async() =>{
-    //         const res = axios.get("http://localhost:8800/api/users/followings"+user._id)
-    //     }
-    
-    // })
    
     const followHandler = async() =>{
         if(followed){

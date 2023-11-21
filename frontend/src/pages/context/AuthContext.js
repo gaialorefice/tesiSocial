@@ -2,9 +2,9 @@
 import { createContext,useEffect, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
-const INITIAL_STATE ={ //rappresenta lo stao iniziale
-    user : JSON.parse(localStorage.getItem("user")) || null, //perché non è stato effettuato il login
-    isFetching: false, //determina se sta avvenendo il processo
+const INITIAL_STATE ={ // Rappresenta lo stato iniziale
+    user : JSON.parse(localStorage.getItem("user")) || null, //Il primo se è stato effettuato il login, il secondo se non è stato effettuato
+    isFetching: false, 
     error: false
 };
 

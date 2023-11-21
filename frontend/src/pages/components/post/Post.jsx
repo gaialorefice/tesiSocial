@@ -6,7 +6,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-// import { Users } from '../../../PostProva';
 import axios from 'axios';
 import Search from '../search/Search';
 import Comment from '../comment/Comment';
@@ -20,8 +19,8 @@ import { AuthContext } from '../../context/AuthContext';
 
 export default function Post({post}) {
     
-    const [like,setLike]=useState(post.likes.length)//hook
-    const [isLiked,setIsLiked]=useState(false)//hook
+    const [like,setLike]=useState(post.likes.length)
+    const [isLiked,setIsLiked]=useState(false)
     const [user, setUser] = useState({})
    
     const [openComments, setOpenComments] = useState(false)
@@ -45,9 +44,8 @@ export default function Post({post}) {
       
       fetchUser();
   
-    },[post.userId]) // è una dipendenza, quando cambia l'id deve renderizzare nuiovamente
-
-    const likeHandler =()=>{ //arrow function
+    },[post.userId]) 
+    const likeHandler =()=>{ 
         try {
           axios.put("http://localhost:8800/api/posts/"+post._id+"/like",{userId:currentUser._id});
         } catch (error) {
@@ -67,7 +65,7 @@ export default function Post({post}) {
       }
 
       axios.post("http://localhost:8800/api/posts/"+post._id+"/comments", payload);
-      console.log(payload);
+      
       
       console.log("commento aggiunto");
       window.location.reload();
@@ -91,7 +89,7 @@ export default function Post({post}) {
                 {currentUser._id === post.userId? <MoreVertIcon data-bs-toggle="modal" data-bs-target={"#deleteModal-"+post._id}/> : <MoreVertIcon sx={{ color: 'white' }}/>  }
                 <Search post = {post}/>
                 <Delete post = {post}/>
-                {/* <div  data-bs-toggle="modal" data-bs-target="deleteModal"> */}
+             
 
               </div>
              
