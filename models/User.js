@@ -43,10 +43,6 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
 
-    bio:{
-        type: String,
-        max: 50
-    },
 
     followings:{
         type: Array,
