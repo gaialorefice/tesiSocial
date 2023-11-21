@@ -18,17 +18,7 @@ function App() {
 
   const {user} = useContext(AuthContext);
   return (
-    // <Router>
-    //   <Switch>
-    //     <Route exact path="/"> {user ? <Home /> : <Signup />} </Route> {/* Controllo che l'utente sia loggato per farlo andare in home*/}
 
-    //     <Route path="/login"> {user ? <Redirect to="/" /> : <Login />}</Route>
-        
-    //     <Route path="/signup"> {user ? <Redirect to="/" /> : <Signup />}</Route>
-        
-    //     <Route path="/profile/:username"><Profile /></Route>
-    //   </Switch>
-    // </Router>
 
 
     <Router>
@@ -46,11 +36,6 @@ function App() {
       </Routes>
     </Router>
 
-  
-    //<Login/>
-    //<Signup/>
-    //<Home/>
-    //<Profile/>
   );
 }
 
